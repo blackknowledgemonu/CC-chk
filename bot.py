@@ -1,39 +1,88 @@
-#   /admin -  𝗰𝗼𝗻𝘁𝗿𝗼𝗹
-#   /gates - 𝗴𝗮𝘁𝗲𝘄𝗮𝘆 𝗰𝗼𝗻𝘁𝗿 σχεολ
-#   /search - 𝗴𝗼𝗼𝗴𝗹𝗲 𝘀𝗰𝗿𝗮𝗽 𝗳𝗼𝗿 𝗴𝗮𝘁𝘀
-#   /bin - 𝗕𝗜𝗡 𝗹𝗼𝗼𝗸𝘂𝗽
-#   /cb - 𝗰𝗵𝗲𝗰𝗸 𝗳𝗶𝗹𝗲 𝗯𝗶𝗻𝘀
-#   /len - 𝗵𝗼𝘄 𝗺𝗮𝗻𝘆 𝗳𝗶𝗹𝗲 𝗹𝗶𝗻𝗲𝘀
-#   /mix - 𝘀𝗵𝘂𝗳𝗳𝗹𝗲 𝗮𝗻𝗱 𝗺𝗶𝘅 𝗰𝗼𝗺𝗯𝗼 𝗹𝗶𝗻𝗲𝘀
-#   /filter - 𝗲𝘅𝘁𝗿𝗮𝗰𝘁 𝗰𝗮𝗿𝗱𝘀 𝘄𝗶𝘁𝗵 𝘀𝗽𝗲𝗰𝗶𝗳𝗶𝗰 𝗯𝗶𝗻
-#   /genf - 𝗴𝗲𝗻𝗿𝗮𝘁𝗲 𝗰𝗼𝗺𝗯𝗼 𝗳𝗶𝗹𝗲
-#   /gen - 𝗴𝗲𝗻𝗿𝗮𝘁𝗲 𝟭𝟬 𝗰𝗮𝗿𝗱𝘀
-#   /scr - 𝘀𝗰𝗿𝗮𝗽 𝗰𝗮𝗿𝗱𝘀
-#   /sk - 𝗰𝗵𝗲𝗰𝗸 𝘀𝗸 𝗸𝗲𝘆
-#   /chk - 𝗰𝗵𝗲𝗰𝗸 𝘀𝗶𝗻𝗴𝗹𝗲 𝗰𝗮𝗿𝗱 𝘄𝗶𝘁𝗵 𝗦𝗧𝗥𝗜𝗣𝗘 𝗖𝗛𝗔𝗥𝗚𝗘
-#   /str - 𝗰𝗵𝗲𝗰𝗸 𝘀𝗶𝗻𝗴𝗹𝗲 𝗰𝗮𝗿𝗱 𝘄𝗶𝘁𝗵 𝘀𝘁𝗿𝗶𝗽𝗲
-#   /filestr - 𝗰𝗵𝗲𝗰𝗸 𝗰𝗼𝗺𝗯𝗼 𝗳𝗶𝗹𝗲 𝘄𝗶𝘁𝗵 𝘀𝘁𝗿𝗶𝗽𝗲
-#   /file - 𝗰𝗵𝗲𝗰𝗸 𝗰𝗼𝗺𝗯𝗼 𝗳𝗶𝗹𝗲 𝘄𝗶𝘁𝗵 𝗦𝗧𝗥𝗜𝗣𝗘 𝗖𝗛𝗔𝗥𝗚𝗘
-#   /start - 𝘀𝘁𝗮𝗿𝘁 𝘁𝗵𝗲 𝗯𝗼𝘁
-#———–———–———–———–———–———#
-#pylint:disable=W0603
-#pylint:disable=W0703
-#pylint:disable=W0623
-#pylint:disable=W0622
-#———–———–———–———–———–———#
 import telebot, time, os, asyncio, datetime, re, json, threading, functools
 from telebot import types
-#———–———–———–———–———–———#
-# Make sure you have these local modules in the same directory
-from braintree import braintree
-from bin_info_v1 import bin_info
-from paypal import process_card_p
-from stripe import process_card
-from braintree import process_card_b
-from genfun import gen_card
-from paypal5 import process_card_paypal5
-from shopify_charge import process_card_s
-from braintree_dual_checker import ali1
+import random, string
+from datetime import datetime, timedelta
+
+# —————————— FIXED IMPORTS & PLACEHOLDERS —————————— #
+# Render par "ModuleNotFoundError" se bachne ke liye placeholders
+import braintree 
+
+def placeholder_func(*args, **kwargs):
+    return "⚠️ This feature requires missing local files (like bin_info or gateways)."
+
+# Missing modules ko handle karne ke liye
+bin_info = placeholder_func
+process_card_p = placeholder_func
+process_card = placeholder_func
+process_card_b = placeholder_func
+gen_card = placeholder_func
+ali1 = placeholder_func
+perform_search = placeholder_func
+count_lines = lambda x: 0
+mix_lines = placeholder_func
+filter = placeholder_func
+check_key = placeholder_func
+get_bin_info = placeholder_func
+extract_bins = placeholder_func
+get_last_messages = placeholder_func
+save_to_file = placeholder_func
+# —————————————————————————————————————————————————— #
+
+bot = telebot.TeleBot("8662492230:AAHerwQ0PlavJ3rwn7zxsE6g-MnmJbJqXrg", parse_mode='html')
+admin_id = 1677950104
+
+# --- Bot Status ---
+bot_working = True
+gate_status = {k: True for k in ['chk', 'str', 'pay', 'sh', 'filestr', 'file', 'chk3']}
+
+# --- Initialize JSON Files ---
+def initialize_json(filename, default_data):
+    if not os.path.exists(filename):
+        with open(filename, 'w') as f:
+            json.dump(default_data, f, indent=4)
+
+for f in ['data.json', 'free.json', 'banned_users.json', 'credits.json', 'user_proxies.json']:
+    initialize_json(f, {} if 'json' in f else [])
+
+# ——————————————— KEYBOARDS ——————————————— #
+def create_main_menu_keyboard():
+    markup = types.InlineKeyboardMarkup(row_width=2)
+    markup.add(
+        types.InlineKeyboardButton("💳 CC CHECK", callback_data="cc"),
+        types.InlineKeyboardButton("🔍 SCRAP", callback_data="scr"),
+        types.InlineKeyboardButton("⚙️ COMBO", callback_data="combo"),
+        types.InlineKeyboardButton("💰 BUY SUB", callback_data="Buy")
+    )
+    return markup
+
+def create_back_button():
+    markup = types.InlineKeyboardMarkup()
+    markup.add(types.InlineKeyboardButton("🔙 BACK", callback_data="back"))
+    return markup
+
+# ——————————————— HANDLERS ——————————————— #
+@bot.message_handler(commands=['start'])
+def start(message):
+    bot.send_message(
+        message.chat.id, 
+        "<b>Welcome to the Bot! ❤️🇪🇬</b>\nStatus: Online", 
+        reply_markup=create_main_menu_keyboard()
+    )
+
+@bot.callback_query_handler(func=lambda call: True)
+def callback_query(call):
+    if call.data == "cc":
+        bot.edit_message_text("💳 <b>Card Check Menu</b>\n\nUse commands like /chk or /str to check cards.", 
+                              call.message.chat.id, call.message.message_id, 
+                              reply_markup=create_back_button(), parse_mode='html')
+    elif call.data == "back":
+        bot.edit_message_text("<b>Main Menu</b>", call.message.chat.id, 
+                              call.message.message_id, reply_markup=create_main_menu_keyboard(), 
+                              parse_mode='html')
+
+# ——————————————— START BOT ——————————————— #
+print("Bot is Live on Render...")
+bot.infinity_polling()
 from search import perform_search
 from len_fun import count_lines
 from mix_fun import mix_lines
