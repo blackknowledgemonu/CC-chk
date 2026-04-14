@@ -1,31 +1,14 @@
-#   /admin -  𝗰𝗼𝗻𝘁𝗿𝗼𝗹
-#   /gates - 𝗴𝗮𝘁𝗲𝘄𝗮𝘆 𝗰𝗼𝗻𝘁𝗿 σχεολ
-#   /search - 𝗴𝗼𝗼𝗴𝗹𝗲 𝘀𝗰𝗿𝗮𝗽 𝗳𝗼𝗿 𝗴𝗮𝘁𝘀
-#   /bin - 𝗕𝗜𝗡 𝗹𝗼𝗼𝗸𝘂𝗽
-#   /cb - 𝗰𝗵𝗲𝗰𝗸 𝗳𝗶𝗹𝗲 𝗯𝗶𝗻𝘀
-#   /len - 𝗵𝗼𝘄 𝗺𝗮𝗻𝘆 𝗳𝗶𝗹𝗲 𝗹𝗶𝗻𝗲𝘀
-#   /mix - 𝘀𝗵𝘂𝗳𝗳𝗹𝗲 𝗮𝗻𝗱 𝗺𝗶𝘅 𝗰𝗼𝗺𝗯𝗼 𝗹𝗶𝗻𝗲𝘀
-#   /filter - 𝗲𝘅𝘁𝗿𝗮𝗰𝘁 𝗰𝗮𝗿𝗱𝘀 𝘄𝗶𝘁𝗵 𝘀𝗽𝗲𝗰𝗶𝗳𝗶𝗰 𝗯𝗶𝗻
-#   /genf - 𝗴𝗲𝗻𝗿𝗮𝘁𝗲 𝗰𝗼𝗺𝗯𝗼 𝗳𝗶𝗹𝗲
-#   /gen - 𝗴𝗲𝗻𝗿𝗮𝘁𝗲 𝟭𝟬 𝗰𝗮𝗿𝗱𝘀
-#   /scr - 𝘀𝗰𝗿𝗮𝗽 𝗰𝗮𝗿𝗱𝘀
-#   /sk - 𝗰𝗵𝗲𝗰𝗸 𝘀𝗸 𝗸𝗲𝘆
-#   /chk - 𝗰𝗵𝗲𝗰𝗸 𝘀𝗶𝗻𝗴𝗹𝗲 𝗰𝗮𝗿𝗱 𝘄𝗶𝘁𝗵 𝗦𝗧𝗥𝗜𝗣𝗘 𝗖𝗛𝗔𝗥𝗚𝗘
-#   /str - 𝗰𝗵𝗲𝗰𝗸 𝘀𝗶𝗻𝗴𝗹𝗲 𝗰𝗮𝗿𝗱 𝘄𝗶𝘁𝗵 𝘀𝘁𝗿𝗶𝗽𝗲
-#   /filestr - 𝗰𝗵𝗲𝗰𝗸 𝗰𝗼𝗺𝗯𝗼 𝗳𝗶𝗹𝗲 𝘄𝗶𝘁𝗵 𝘀𝘁𝗿𝗶𝗽𝗲
-#   /file - 𝗰𝗵𝗲𝗰𝗸 𝗰𝗼𝗺𝗯𝗼 𝗳𝗶𝗹𝗲 𝘄𝗶𝘁𝗵 𝗦𝗧𝗥𝗜𝗣𝗘 𝗖𝗛𝗔𝗥𝗚𝗘
-#   /start - 𝘀𝘁𝗮𝗿𝘁 𝘁𝗵𝗲 𝗯𝗼𝘁
-#———–———–———–———–———–———#
 import telebot, time, os, asyncio, datetime, re, json, threading, functools
 from telebot import types
 from telebot.types import LabeledPrice
 import random, string
 from datetime import datetime, timedelta
 
-# —————————— FIXED IMPORTS —————————— #
-import braintree as official_braintree # Official Library
+# —————————— FIXED IMPORTS & CONFLICT RESOLUTION —————————— #
+import braintree as braintree_lib # Official Library (Conflict Fixed)
+
 try:
-    # Humne aapki file ka naam my_braintree.py rakha hai takki conflict na ho
+    # Aapne jo file rename ki (my_braintree.py), uska function yahan aayega
     from my_braintree import process_card_b 
     from braintree_dual_checker import ali1
     from check_bins_fun import extract_bins
@@ -33,7 +16,62 @@ try:
 except ImportError as e:
     print(f"⚠️ Warning: Missing local module: {e}")
 
-# —————————— BOT SETTINGS —————————— #
+# —————————— BOT CONFIGURATION —————————— #
+TOKEN = "8662492230:AAHerwQ0PlavJ3rwn7zxsE6g-MnmJbJqXrg"
+admin_id = 1677950104
+bot = telebot.TeleBot(TOKEN, parse_mode='html')
+
+# —————————— INITIALIZE SYSTEM FILES —————————— #
+def initialize_json(filename, default_data):
+    if not os.path.exists(filename):
+        with open(filename, 'w') as f:
+            json.dump(default_data, f, indent=4)
+
+json_list = ['data.json', 'free.json', 'banned_users.json', 'credits.json', 'user_proxies.json']
+for filename in json_list:
+    initialize_json(filename, {} if 'json' in filename else [])
+
+# —————————— KEYBOARDS —————————— #
+def create_main_menu():
+    markup = types.InlineKeyboardMarkup(row_width=2)
+    markup.add(
+        types.InlineKeyboardButton("👑 OWNER", callback_data="admin"),
+        types.InlineKeyboardButton("💳 CC CHECK", callback_data="cc"),
+        types.InlineKeyboardButton("🔍 SCRAP", callback_data="scr"),
+        types.InlineKeyboardButton("⚙️ COMBO", callback_data="combo")
+    )
+    return markup
+
+# —————————— COMMAND HANDLERS —————————— #
+@bot.message_handler(commands=['start'])
+def start_handler(message):
+    bot.send_video(
+        message.chat.id,
+        video="https://t.me/cccjwowowow/85",
+        caption="<b>𝘄𝗲𝗹𝗰𝗼𝗺𝗲 𝘁𝗼 𝘁𝗵𝗲 𝗯𝗼𝘁 ❤️🇪🇬</b>\n\nStatus: 🟢 <code>Online</code>\nAdmin ID: <code>1677950104</code>",
+        reply_markup=create_main_menu()
+    )
+
+@bot.callback_query_handler(func=lambda call: True)
+def callback_handler(call):
+    if call.data == "cc":
+        bot.edit_message_caption("─────── 💳 <b>Card Check Menu</b> ───────\n\n/chk3 - Braintree Dual\n/str - Stripe Charge\n/bin - BIN Lookup", 
+                                 call.message.chat.id, call.message.message_id, reply_markup=create_main_menu())
+    elif call.data == "admin":
+        if call.from_user.id == admin_id:
+            bot.edit_message_caption("👑 <b>Admin Control Panel</b>\n\n/admin - Bot Control\n/gates - Control Gates\n/grant - Add Credits", 
+                                     call.message.chat.id, call.message.message_id, reply_markup=create_main_menu())
+        else:
+            bot.answer_callback_query(call.id, "❌ Only Owner Access!", show_alert=True)
+
+# —————————— START THE ENGINE —————————— #
+if __name__ == '__main__':
+    print("▶️ Bot script is LIVE on Render.")
+    try:
+        bot.send_message(admin_id, "✅ <b>Bot is now ONLINE!</b>\nAll modules are linked and conflict is resolved.")
+    except:
+        pass
+    bot.infinity_polling(none_stop=True)
 TOKEN = "8662492230:AAHerwQ0PlavJ3rwn7zxsE6g-MnmJbJqXrg"
 admin_id = 1677950104
 bot = telebot.TeleBot(TOKEN, parse_mode='html')
