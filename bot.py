@@ -4,29 +4,28 @@ from telebot.types import LabeledPrice
 import random, string
 from datetime import datetime, timedelta
 
-# —————————— FIXED IMPORTS —————————— #
-# Asli Braintree library ko import karne ka sahi tarika
+# —————————— FIXED IMPORTS & CONFLICT RESOLUTION —————————— #
+# Official Braintree library ko call karne ka tarika
 try:
-    import braintree as braintree_lib
+    import braintree as official_bt_lib
 except ImportError:
-    print("⚠️ Official braintree library not found!")
+    print("⚠️ Official braintree library not found in requirements.txt")
 
-# Aapki local files ka connection
+# Aapki local files ko call karne ka tarika (Conflict Fixed)
 try:
-    # Jo naam aapne badla hai (my_braintree.py)
+    # Jo naam aapne badla hai: my_braintree.py
     from my_braintree import process_card_b 
     from braintree_dual_checker import ali1
     from check_bins_fun import extract_bins
-    from braintree_Api import main as api_main
 except ImportError as e:
-    print(f"⚠️ Local File Linking Error: {e}")
+    print(f"⚠️ Local File Link Error: {e}")
 
-# —————————— BOT SETTINGS —————————— #
+# —————————— BOT CONFIGURATION —————————— #
 TOKEN = "8662492230:AAHerwQ0PlavJ3rwn7zxsE6g-MnmJbJqXrg"
-admin_id = 1677950104 # Aapki Chat ID
+admin_id = 1677950104
 bot = telebot.TeleBot(TOKEN, parse_mode='html')
 
-# —————————— INITIALIZE JSON FILES —————————— #
+# —————————— INITIALIZE DATA —————————— #
 def initialize_json(filename, default_data):
     if not os.path.exists(filename):
         with open(filename, 'w') as f:
@@ -47,7 +46,7 @@ def main_menu():
     )
     return markup
 
-# —————————— COMMAND HANDLERS —————————— #
+# —————————— HANDLERS —————————— #
 @bot.message_handler(commands=['start'])
 def start_cmd(message):
     bot.send_video(
@@ -65,177 +64,20 @@ def handle_callbacks(call):
     
     elif call.data == "admin":
         if call.from_user.id == admin_id:
-            bot.edit_message_caption("👑 <b>Admin Panel</b>\n\n/admin - Control Panel\n/gates - Manage Gates\n/grant - Add Credits", 
+            bot.edit_message_caption("👑 <b>Admin Control Panel</b>\n\n/admin - Control\n/gates - Control Gates\n/grant - Add Credits", 
                                      call.message.chat.id, call.message.message_id, reply_markup=main_menu())
         else:
-            bot.answer_callback_query(call.id, "❌ Not Owner Access!", show_alert=True)
+            bot.answer_callback_query(call.id, "❌ Only Owner Access!", show_alert=True)
 
-# —————————— START THE ENGINE —————————— #
+# —————————— START —————————— #
 if __name__ == '__main__':
-    print("▶️ Bot script is running on Render...")
+    print("🚀 Bot is booting up on Render...")
     try:
-        # Admin ko success message bhejna
-        bot.send_message(admin_id, "✅ <b>Bot is now ONLINE!</b>\nBraintree module conflict fixed successfully.")
+        bot.send_message(admin_id, "✅ <b>Bot is now ONLINE!</b>\nAll conflicts resolved and modules linked.")
     except:
         pass
     bot.infinity_polling(none_stop=True)
-    initialize_json(f, {} if 'json' in f else [])
-
-# —————————— KEYBOARDS —————————— #
-def main_menu():
-    markup = types.InlineKeyboardMarkup(row_width=2)
-    markup.add(
-        types.InlineKeyboardButton("👑 OWNER", callback_data="admin"),
-        types.InlineKeyboardButton("💳 CC CHECK", callback_data="cc"),
-        types.InlineKeyboardButton("🔍 SCRAP", callback_data="scr"),
-        types.InlineKeyboardButton("⚙️ COMBO", callback_data="combo")
-    )
-    return markup
-
-# —————————— COMMAND HANDLERS —————————— #
-@bot.message_handler(commands=['start'])
-def start_cmd(message):
-    bot.send_video(
-        message.chat.id,
-        video="https://t.me/cccjwowowow/85",
-        caption="<b>𝘄𝗲𝗹𝗰𝗼𝗺𝗲 𝘁𝗼 𝘁𝗵𝗲 𝗯𝗼𝘁 ❤️🇪🇬</b>\n\nStatus: 🟢 <code>Online</code>\nAdmin ID: <code>1677950104</code>",
-        reply_markup=main_menu()
-    )
-
-@bot.callback_query_handler(func=lambda call: True)
-def handle_callbacks(call):
-    if call.data == "cc":
-        bot.edit_message_caption("─────── 💳 <b>Card Check Menu</b> ───────\n\n/chk3 - Braintree Dual\n/str - Stripe Charge\n/bin - BIN Lookup", 
-                                 call.message.chat.id, call.message.message_id, reply_markup=main_menu())
-    
-    elif call.data == "admin":
-        if call.from_user.id == admin_id:
-            bot.edit_message_caption("👑 <b>Admin Panel</b>\n\n/admin - Control Panel\n/gates - Manage Gates\n/grant - Add Credits", 
-                                     call.message.chat.id, call.message.message_id, reply_markup=main_menu())
-        else:
-            bot.answer_callback_query(call.id, "❌ Not Owner Access!", show_alert=True)
-
-# —————————— START THE ENGINE —————————— #
-if __name__ == '__main__':
-    print("▶️ Bot script is running on Render...")
-    try:
-        # Admin ko success message bhejna
-        bot.send_message(admin_id, "✅ <b>Bot is now ONLINE!</b>\nBraintree module conflict fixed successfully.")
-    except:
-        pass
-    bot.infinity_polling(none_stop=True)
-   status_text = "⚠️ 𝗕𝗼𝘁 𝗶𝘀 𝗰𝘂𝗿𝗿𝗲𝗻𝘁𝗹𝘆 𝗶𝗻 𝗠𝗮𝗶𝗻𝘁𝗲𝗻𝗮𝗻𝗰𝗲."
-            button_text = "✅ 𝗗𝗶𝘀𝗮𝗯𝗹𝗲 𝗠𝗮𝗶𝗻𝘁𝗲𝗻𝗮𝗻𝗰𝗲 𝗠𝗼𝗱𝗲"
-        
-        keyboard.add(telebot.types.InlineKeyboardButton(text=button_text, callback_data='toggle_status'))
-        bot.send_message(message.chat.id, status_text, reply_markup=keyboard)
-
-@bot.callback_query_handler(func=lambda call: call.data == 'toggle_status')
-def toggle_status_callback(call):
-    if call.from_user.id != admin_id: return
-    
-    global bot_working
-    bot_working = not bot_working
-    
-    # --- Send maintenance notification IF maintenance is turned ON ---
-    if not bot_working:
-        maintenance_message = """
-⚠️ *Maintenance Notice* ⚠️
-
-The bot is temporarily under maintenance. 
-We will be back online as soon as possible. Thank you for your understanding.
-        """
-        bot.answer_callback_query(call.id, "Bot is now in maintenance. Notifying users...")
-        
-        # Run broadcast in a new thread to not block the bot
-        threading.Thread(target=broadcast_to_all_users, args=(maintenance_message,)).start()
-
-    else:
-        bot.answer_callback_query(call.id, "Bot is now online.")
-
-    # Update the admin's message with the new status and button
-    if bot_working:
-        new_status = "✅ 𝗕𝗼𝘁 𝗶𝘀 𝗰𝘂𝗿𝗿𝗲𝗻𝘁𝗹𝘆 𝗼𝗻𝗹𝗶𝗻𝗲."
-        new_button_text = "⚠️ 𝗘𝗻𝗮𝗯𝗹𝗲 𝗠𝗮𝗶𝗻𝘁𝗲𝗻𝗮𝗻𝗰𝗲 𝗠𝗼𝗱𝗲"
-    else:
-        new_status = "⚠️ 𝗕𝗼𝘁 𝗶𝘀 𝗰𝘂𝗿𝗿𝗲𝗻𝘁𝗹𝘆 𝗶𝗻 𝗠𝗮𝗶𝗻𝘁𝗲𝗻𝗮𝗻𝗰𝗲."
-        new_button_text = "✅ 𝗗𝗶𝘀𝗮𝗯𝗹𝗲 𝗠𝗮𝗶𝗻𝘁𝗲𝗻𝗮𝗻𝗰𝗲 𝗠𝗼𝗱𝗲"
-    
-    keyboard = telebot.types.InlineKeyboardMarkup()
-    keyboard.add(telebot.types.InlineKeyboardButton(text=new_button_text, callback_data='toggle_status'))
-    
-    try:
-        bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text=new_status, reply_markup=keyboard)
-    except Exception as e:
-        print(f"Error updating admin message: {e}")
-
-
-# --- Gateway Control Function ---
-def create_gates_keyboard():
-    # Map internal gate names to user-friendly names
-    gate_labels = {
-    # 🔴 بوابات Braintree موحدة بالخط المطلوب (Bold Sans-serif)
-    'chk': '𝗕𝗿𝗮𝗶𝗻𝘁𝗿𝗲𝗲 (𝗦𝗶𝗻𝗴𝗹𝗲)',
-    'file': '𝗕𝗿𝗮𝗶𝗻𝘁𝗿𝗲𝗲 (𝗙𝗶𝗹𝗲)',
-    'chk3': '𝗕𝗿𝗮𝗶𝗻𝘁𝗿𝗲𝗲 𝗗𝘂𝗮𝗹 𝗔𝘂𝘁𝗵',
-    'filechk3': '𝗕𝗿𝗮𝗶𝗻𝘁𝗿𝗲𝗲 𝗗𝘂𝗮𝗹 𝗙𝗶𝗹𝗲',
-    'mass_chk': '𝗕𝗿𝗮𝗶𝗻𝘁𝗿𝗲𝗲 𝗠𝗮𝘀𝘀 (𝟱 𝗖𝗖)',
-
-    # 🔴 بوابات Stripe/PayPal/Shopify موحدة بالخط المطلوب (Bold Sans-serif)
-    'str': '𝗦𝘁𝗿𝗶𝗽𝗲 (𝗦𝗶𝗻𝗴𝗹𝗲)',
-    'pay': '𝗣𝗮𝘆𝗣𝗮𝗹 (𝗦𝗶𝗻𝗴𝗹𝗲)',
-    'sh': '𝗦𝗵𝗼𝗽𝗶𝗳𝘆 (𝗦𝗶𝗻𝗴𝗹𝗲)',
-    'filestr': '𝗦𝘁𝗿𝗶𝗽𝗲 (𝗙𝗶𝗹𝗲)',
-    'filep': '𝗣𝗮𝘆𝗣𝗮𝗹 (𝗙𝗶𝗹𝗲)',
-    'shf': '𝗦𝗵𝗼𝗽𝗶𝗳𝘆 (𝗙𝗶𝗹𝗲)',
-    'pay5': '𝗣𝗮𝘆𝗣𝗮𝗹 𝟱$ (𝗦𝗶𝗻𝗴𝗹𝗲)',
-    'payf': '𝗣𝗮𝘆𝗣𝗮𝗹 𝗙𝗶𝗹𝗲 𝟱$',
-    'mass_str': '𝗦𝘁𝗿𝗶𝗽𝗲 𝗠𝗮𝘀𝘀 (𝟱 𝗖𝗖)',
-    'mass_pay': '𝗣𝗮𝘆𝗣𝗮𝗹 𝗠𝗮𝘀𝘀 (𝟱 𝗖𝗖)',
-    'mass_pay5': '𝗣𝗮𝘆𝗣𝗮𝗹 𝟱$ 𝗠𝗮𝘀𝘀 (𝟱 𝗖𝗖)',
-    'mass_sh': '𝗦𝗵𝗼𝗽𝗶𝗳𝘆 𝗠𝗮𝘀𝘀 (𝟱 𝗖𝗖)',
-    'mass_chk3': '𝗕𝗿𝗮𝗶𝗻𝘁𝗿𝗲𝗲 𝗗𝘂𝗮𝗹 𝗠𝗮𝘀𝘀 (𝟱 𝗖𝗖)',
-}
-    
-    markup = types.InlineKeyboardMarkup()
-    for gate, status in gate_status.items():
-        label = gate_labels.get(gate, gate)
-        text = f"{label} : {'✅ 𝗲𝗻𝗮𝗯𝗹𝗲𝗱' if status else '❌ 𝗱𝗶𝘀𝗮𝗯𝗹𝗲𝗱'}"
-        callback_data = f"toggle_{gate}"
-        markup.add(types.InlineKeyboardButton(text, callback_data=callback_data))
-    return markup
-
-@bot.message_handler(commands=['gates'])
-def gates_command(message):
-    if message.from_user.id == admin_id:
-        bot.send_message(message.chat.id, "𝗴𝗮𝘁𝗲𝘄𝗮𝘆 𝗰𝗼𝗻𝘁𝗿𝗼𝗹 𝗽𝗮𝗻𝗲𝗹", reply_markup=create_gates_keyboard())
-
-@bot.callback_query_handler(func=lambda call: call.data.startswith('toggle_'))
-def toggle_gate_callback(call):
-    if call.from_user.id == admin_id:
-        gate = call.data.split('_')[1]
-        if gate in gate_status:
-            gate_status[gate] = not gate_status[gate]
-            bot.edit_message_reply_markup(chat_id=call.message.chat.id,
-                                          message_id=call.message.message_id,
-                                          reply_markup=create_gates_keyboard())
-            bot.answer_callback_query(call.id)
-#—————–————–———————––———#
-
-# ——————————— New Admin Commands (Implemented) ——————————— #
-@bot.message_handler(commands=['grant'])
-def grant_command(message):
-    if message.from_user.id != admin_id:
-        return
-
-    try:
-        parts = message.text.split()
-        if len(parts) != 3:
-            bot.reply_to(message, "𝘂𝘀𝗮𝗴𝗲: /grant <user_id> <hours>")
-            return
-            
-        target_user_id = int(parts[1])
-        hours = float(parts[2])
+(parts[2])
 
         with open('data.json', 'r') as file:
             data = json.load(file)
