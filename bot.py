@@ -1,39 +1,32 @@
 import telebot, time, os, asyncio, datetime, re, json, threading, functools
 from telebot import types
-from telebot.types import LabeledPrice
 import random, string
 from datetime import datetime, timedelta
 
-# —————————— IMPORT LOCAL MODULES —————————— #
-# Maine try-except lagaya hai taaki agar koi file miss ho jaye toh bot crash na ho
+# —————————— IMPORTANT: LOCAL MODULES LINKING —————————— #
+# Hum try-except use kar rahe hain taaki koi file miss hone par bot band na ho
 try:
     from braintree_dual_checker import ali1
     from check_bins_fun import extract_bins
-    # Agar aapke paas baaki files (paypal, shopify) bhi hain toh unhe yahan add karein
+    import braintree_Api as api_gateway
 except ImportError as e:
-    print(f"⚠️ Warning: Some local modules are missing: {e}")
+    print(f"⚠️ Warning: Missing local files: {e}")
 
-# —————————— BOT CONFIGURATION —————————— #
+# —————————— BOT SETTINGS —————————— #
 TOKEN = "8662492230:AAHerwQ0PlavJ3rwn7zxsE6g-MnmJbJqXrg"
-admin_id = 1677950104 # Aapki sahi Chat ID
-
+admin_id = 1677950104
 bot = telebot.TeleBot(TOKEN, parse_mode='html')
 
-# —————————— INITIALIZE DATA —————————— #
-def initialize_json(filename, default_data):
-    if not os.path.exists(filename):
-        with open(filename, 'w') as f:
-            json.dump(default_data, f, indent=4)
+# --- Data Initialization ---
+def init_json(name, data):
+    if not os.path.exists(name):
+        with open(name, 'w') as f: json.dump(data, f, indent=4)
 
-# Zaroori files setup
-initialize_json('data.json', {})
-initialize_json('free.json', [])
-initialize_json('banned_users.json', [])
-initialize_json('credits.json', {})
-initialize_json('user_proxies.json', {})
+for f in ['data.json', 'free.json', 'banned_users.json', 'credits.json', 'user_proxies.json']:
+    init_json(f, {} if 'json' in f else [])
 
 # —————————— KEYBOARDS —————————— #
-def create_main_menu():
+def main_menu():
     markup = types.InlineKeyboardMarkup(row_width=2)
     markup.add(
         types.InlineKeyboardButton("👑 OWNER", callback_data="admin"),
@@ -43,217 +36,37 @@ def create_main_menu():
     )
     return markup
 
-# —————————— HANDLERS —————————— #
+# —————————— COMMAND HANDLERS —————————— #
 @bot.message_handler(commands=['start'])
-def start_handler(message):
+def start(message):
     bot.send_video(
         message.chat.id,
         video="https://t.me/cccjwowowow/85",
-        caption="<b>𝘄𝗲𝗹𝗰𝗼𝗺𝗲 𝘁𝗼 𝘁𝗵𝗲 𝗯𝗼𝘁 ❤️🇪🇬</b>\n\nStatus: 🟢 <code>Online</code>\nAdmin: <a href='tg://user?id=1677950104'>Boss</a>",
-        reply_markup=create_main_menu()
+        caption="<b>𝘄𝗲𝗹𝗰𝗼𝗺𝗲 𝘁𝗼 𝘁𝗵𝗲 𝗯𝗼𝘁 ❤️🇪🇬</b>\n\nStatus: 🟢 <code>Online</code>",
+        reply_markup=main_menu()
     )
 
 @bot.callback_query_handler(func=lambda call: True)
-def callback_handler(call):
+def handle_query(call):
     if call.data == "cc":
-        bot.edit_message_caption("─────── 💳 <b>Card Check Menu</b> ───────\n\n/chk3 - Braintree Dual Auth\n/str - Stripe\n/sh - Shopify", 
-                                 call.message.chat.id, call.message.message_id, 
-                                 reply_markup=create_main_menu())
+        bot.edit_message_caption("─────── 💳 <b>Card Checker</b> ───────\n\n/chk3 - Braintree Dual\n/str - Stripe\n/bin - BIN Lookup", 
+                                 call.message.chat.id, call.message.message_id, reply_markup=main_menu())
+    
     elif call.data == "admin":
         if call.from_user.id == admin_id:
-            bot.answer_callback_query(call.id, "Welcome Back, Boss!")
-            bot.edit_message_caption("👑 <b>Admin Control Panel</b>\n\n/admin - Bot Status\n/gates - Control Gates\n/grant - Add Subscription", 
-                                     call.message.chat.id, call.message.message_id, 
-                                     reply_markup=create_main_menu())
+            bot.edit_message_caption("👑 <b>Admin Panel</b>\n\n/admin - Status\n/gates - Control\n/grant - Add Sub", 
+                                     call.message.chat.id, call.message.message_id, reply_markup=main_menu())
         else:
-            bot.answer_callback_query(call.id, "❌ Only the owner can access this!", show_alert=True)
+            bot.answer_callback_query(call.id, "❌ Not an Owner!", show_alert=True)
 
-# —————————— START THE BOT —————————— #
+# —————————— START BOT —————————— #
 if __name__ == '__main__':
-    print("▶️ Bot is running on Render...")
+    print("▶️ Bot is Live on Render!")
     try:
-        bot.send_message(admin_id, "✅ <b>Bot Started Successfully!</b>\nAll features are linked.")
-    except:
-        pass
+        bot.send_message(admin_id, "✅ <b>Bot Started!</b>\nAdmin ID check pass.")
+    except: pass
     bot.infinity_polling()
-
-# --- Initialize JSON Files ---
-def initialize_json(filename, default_data):
-    if not os.path.exists(filename):
-        with open(filename, 'w') as f:
-            json.dump(default_data, f, indent=4)
-
-for f in ['data.json', 'free.json', 'banned_users.json', 'credits.json', 'user_proxies.json']:
-    initialize_json(f, {} if 'json' in f else [])
-
-# ——————————————— KEYBOARDS ——————————————— #
-def create_main_menu_keyboard():
-    markup = types.InlineKeyboardMarkup(row_width=2)
-    markup.add(
-        types.InlineKeyboardButton("💳 CC CHECK", callback_data="cc"),
-        types.InlineKeyboardButton("🔍 SCRAP", callback_data="scr"),
-        types.InlineKeyboardButton("⚙️ COMBO", callback_data="combo"),
-        types.InlineKeyboardButton("💰 BUY SUB", callback_data="Buy")
-    )
-    return markup
-
-def create_back_button():
-    markup = types.InlineKeyboardMarkup()
-    markup.add(types.InlineKeyboardButton("🔙 BACK", callback_data="back"))
-    return markup
-
-# ——————————————— HANDLERS ——————————————— #
-@bot.message_handler(commands=['start'])
-def start(message):
-    bot.send_message(
-        message.chat.id, 
-        "<b>Welcome to the Bot! ❤️🇪🇬</b>\nStatus: Online", 
-        reply_markup=create_main_menu_keyboard()
-    )
-
-@bot.callback_query_handler(func=lambda call: True)
-def callback_query(call):
-    if call.data == "cc":
-        bot.edit_message_text("💳 <b>Card Check Menu</b>\n\nUse commands like /chk or /str to check cards.", 
-                              call.message.chat.id, call.message.message_id, 
-                              reply_markup=create_back_button(), parse_mode='html')
-    elif call.data == "back":
-        bot.edit_message_text("<b>Main Menu</b>", call.message.chat.id, 
-                              call.message.message_id, reply_markup=create_main_menu_keyboard(), 
-                              parse_mode='html')
-
-# ——————————————— START BOT ——————————————— #
-print("Bot is Live on Render...")
-bot.infinity_polling()
-from search import perform_search
-from len_fun import count_lines
-from mix_fun import mix_lines
-from filter_fun import filter
-from sk_check import check_key
-from binlookup import get_bin_info
-from check_bins_fun import extract_bins
-from scrap_fun import get_last_messages,save_to_file
-from faker import Faker
-#———–———–———–———–———–———#
-from telebot.types import LabeledPrice
-import random, string
-from datetime import datetime, timedelta
-import shopify_charge
-#———–———–———–———–———–———#
-bot = telebot.TeleBot("8662492230:AAHerwQ0PlavJ3rwn7zxsE6g-MnmJbJqXrg", parse_mode='html')
-admin_id = 1677950104
-BOT_USERNAME = bot.get_me().username
-
-# --- Bot Status (Maintenance Mode) ---
-bot_working = True
-active_tasks = {}
-waiting_for_file = {} # Specifically for /shf command
-user_file_to_check = {} # NEW: For menu-based file checking
-
-
-# --- Cooldown timer for check commands (per user) ---
-last_usage = {}
-COOLDOWN_PERIOD_SECONDS = 1
-
-# --- Gateway Status Dictionary ---
-# --- Gateway Status Dictionary ---
-gate_status = {
-    'chk': True,      # Braintree single
-    'str': True,      # Stripe single
-    'pay': True,      # PayPal single
-    'sh': True,       # Shopify single
-    'filestr': True,  # Stripe file
-    'file': True,     # Braintree file
-    'filep': True,    # PayPal file
-    'shf': True,      # Shopify file
-    'pay5': True,
-    'payf': True,
-    'chk3': True,    # NEW: برنتري اوث
-    'filechk3': True,
-    # --- NEW Mass Check Commands ---
-    'mass_str': True,  # Stripe Mass Check (5 Cards)
-    'mass_chk': True,  # Braintree Mass Check (5 Cards)
-    'mass_pay': True,  # PayPal Mass Check (5 Cards)
-    'mass_pay5': True, # PayPal $5 Mass Check (5 Cards)
-    'mass_sh': True,   # Shopify Mass Check (5 Cards)
-    'mass_chk3': True, # Braintree Dual Auth Mass Check (5 Cards)
-}
-
-# --- Initialize JSON files ---
-# --- Initialize JSON files ---
-def initialize_json(filename, default_data):
-    if not os.path.exists(filename):
-        with open(filename, 'w') as f:
-            json.dump(default_data, f, indent=4)
-
-initialize_json('data.json', {})
-initialize_json('free.json', [])
-initialize_json('banned_users.json', [])
-initialize_json('credits.json', {})
-initialize_json('store.json', {})
-initialize_json('purchases.json', {})
-initialize_json('user_proxies.json', {}) # The line causing the error when out of order
-
-# --- Decorators ---
-def check_if_banned(func):
-    @functools.wraps(func)
-    def wrapper(message, *args, **kwargs):
-        user_id = message.from_user.id
-        with open('banned_users.json', 'r') as f:
-            banned_users = json.load(f)
-        if user_id in banned_users:
-            print(f"Blocked access for banned user: {user_id}")
-            return
-        return func(message, *args, **kwargs)
-    return wrapper
-
-def check_maintenance(func):
-    @functools.wraps(func)
-    def wrapper(message, *args, **kwargs):
-        if not bot_working and message.from_user.id != admin_id:
-            bot.reply_to(message, "⚠️ 𝗕𝗼𝘁 𝗶𝘀 𝗰𝘂𝗿𝗿𝗲𝗻𝘁𝗹𝘆 𝘂𝗻𝗱𝗲𝗿 𝗺𝗮𝗶𝗻𝘁𝗲𝗻𝗮𝗻𝗰𝗲. 𝗣𝗹𝗲𝗮𝘀𝗲 𝘁𝗿𝘆 𝗮𝗴𝗮𝗶𝗻 𝗹𝗮𝘁𝗲𝗿.")
-            return
-        return func(message, *args, **kwargs)
-    return wrapper
-
-# --- Cooldown decorator for checking commands ---
-def check_cooldown(func):
-    @functools.wraps(func)
-    def wrapper(message, *args, **kwargs):
-        user_id = message.from_user.id
-        now = time.time()
-        
-        if user_id in last_usage and (now - last_usage[user_id]) < COOLDOWN_PERIOD_SECONDS:
-            remaining = int(COOLDOWN_PERIOD_SECONDS - (now - last_usage[user_id]))
-            bot.reply_to(message, f"⏳ Please wait. You can use this command again in {remaining} seconds.")
-            return
-
-        last_usage[user_id] = now
-        return func(message, *args, **kwargs)
-    return wrapper
-
-# ——————————— Subscription Check Function ——————————— #
-def check_subscription(user_id):
-    if user_id == admin_id:
-        return True, "𝗼𝘄𝗻𝗲𝗿"
-    try:
-        with open('data.json', 'r') as file:
-            data = json.load(file)
-        user_id_str = str(user_id)
-        if user_id_str in data:
-            user_data = data[user_id_str]
-            expiry_time_str = user_data.get('timer')
-            if expiry_time_str:
-                expiry_time = datetime.strptime(expiry_time_str, '%Y-%m-%d %H:%M')
-                if datetime.now() < expiry_time:
-                    return True, f"𝘀𝘂𝗯𝘀𝗰𝗿𝗶𝗽𝘁𝗶𝗼𝗻 𝘃𝗮𝗹𝗶𝗱 𝘂𝗻𝘁𝗶𝗹 {expiry_time_str}"
-                else:
-                    del data[user_id_str]
-                    with open('data.json', 'w') as f:
-                        json.dump(data, f, indent=4)
-                    return False, "𝘀𝘂𝗯𝘀𝗰𝗿𝗶𝗽𝘁𝗶𝗼𝗻 𝗲𝘅𝗽𝗶𝗿𝗲𝗱"
-        return False, "𝗳𝗿𝗲𝗲"
-    except (FileNotFoundError, json.JSONDecodeError):
+ror, json.JSONDecodeError):
         return False, "𝗲𝗿𝗿𝗼𝗿 𝗰𝗵𝗲𝗰𝗸𝗶𝗻𝗴 𝘀𝘂𝗯𝘀𝗰𝗿𝗶𝗽𝘁𝗶𝗼𝗻"
 
 def create_buy_keyboard():
