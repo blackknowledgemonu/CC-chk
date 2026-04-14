@@ -1,32 +1,60 @@
+#   /admin -  𝗰𝗼𝗻𝘁𝗿𝗼𝗹
+#   /gates - 𝗴𝗮𝘁𝗲𝘄𝗮𝘆 𝗰𝗼𝗻𝘁𝗿 σχεολ
+#   /search - 𝗴𝗼𝗼𝗴𝗹𝗲 𝘀𝗰𝗿𝗮𝗽 𝗳𝗼𝗿 𝗴𝗮𝘁𝘀
+#   /bin - 𝗕𝗜𝗡 𝗹𝗼𝗼𝗸𝘂𝗽
+#   /cb - 𝗰𝗵𝗲𝗰𝗸 𝗳𝗶𝗹𝗲 𝗯𝗶𝗻𝘀
+#   /len - 𝗵𝗼𝘄 𝗺𝗮𝗻𝘆 𝗳𝗶𝗹𝗲 𝗹𝗶𝗻𝗲𝘀
+#   /mix - 𝘀𝗵𝘂𝗳𝗳𝗹𝗲 𝗮𝗻𝗱 𝗺𝗶𝘅 𝗰𝗼𝗺𝗯𝗼 𝗹𝗶𝗻𝗲𝘀
+#   /filter - 𝗲𝘅𝘁𝗿𝗮𝗰𝘁 𝗰𝗮𝗿𝗱𝘀 𝘄𝗶𝘁𝗵 𝘀𝗽𝗲𝗰𝗶𝗳𝗶𝗰 𝗯𝗶𝗻
+#   /genf - 𝗴𝗲𝗻𝗿𝗮𝘁𝗲 𝗰𝗼𝗺𝗯𝗼 𝗳𝗶𝗹𝗲
+#   /gen - 𝗴𝗲𝗻𝗿𝗮𝘁𝗲 𝟭𝟬 𝗰𝗮𝗿𝗱𝘀
+#   /scr - 𝘀𝗰𝗿𝗮𝗽 𝗰𝗮𝗿𝗱𝘀
+#   /sk - 𝗰𝗵𝗲𝗰𝗸 𝘀𝗸 𝗸𝗲𝘆
+#   /chk - 𝗰𝗵𝗲𝗰𝗸 𝘀𝗶𝗻𝗴𝗹𝗲 𝗰𝗮𝗿𝗱 𝘄𝗶𝘁𝗵 𝗦𝗧𝗥𝗜𝗣𝗘 𝗖𝗛𝗔𝗥𝗚𝗘
+#   /str - 𝗰𝗵𝗲𝗰𝗸 𝘀𝗶𝗻𝗴𝗹𝗲 𝗰𝗮𝗿𝗱 𝘄𝗶𝘁𝗵 𝘀𝘁𝗿𝗶𝗽𝗲
+#   /filestr - 𝗰𝗵𝗲𝗰𝗸 𝗰𝗼𝗺𝗯𝗼 𝗳𝗶𝗹𝗲 𝘄𝗶𝘁𝗵 𝘀𝘁𝗿𝗶𝗽𝗲
+#   /file - 𝗰𝗵𝗲𝗰𝗸 𝗰𝗼𝗺𝗯𝗼 𝗳𝗶𝗹𝗲 𝘄𝗶𝘁𝗵 𝗦𝗧𝗥𝗜𝗣𝗘 𝗖𝗛𝗔𝗥𝗚𝗘
+#   /start - 𝘀𝘁𝗮𝗿𝘁 𝘁𝗵𝗲 𝗯𝗼𝘁
+#———–———–———–———–———–———#
 import telebot, time, os, asyncio, datetime, re, json, threading, functools
 from telebot import types
+from telebot.types import LabeledPrice
 import random, string
 from datetime import datetime, timedelta
 
-# —————————— IMPORTANT: LOCAL MODULES LINKING —————————— #
-# Hum try-except use kar rahe hain taaki koi file miss hone par bot band na ho
+# —————————— FIXED IMPORTS —————————— #
+import braintree as official_braintree # Official Library
 try:
+    # Humne aapki file ka naam my_braintree.py rakha hai takki conflict na ho
+    from my_braintree import process_card_b 
     from braintree_dual_checker import ali1
     from check_bins_fun import extract_bins
-    import braintree_Api as api_gateway
+    from braintree_Api import main as api_main
 except ImportError as e:
-    print(f"⚠️ Warning: Missing local files: {e}")
+    print(f"⚠️ Warning: Missing local module: {e}")
 
 # —————————— BOT SETTINGS —————————— #
 TOKEN = "8662492230:AAHerwQ0PlavJ3rwn7zxsE6g-MnmJbJqXrg"
 admin_id = 1677950104
 bot = telebot.TeleBot(TOKEN, parse_mode='html')
 
-# --- Data Initialization ---
-def init_json(name, data):
-    if not os.path.exists(name):
-        with open(name, 'w') as f: json.dump(data, f, indent=4)
+# --- Status & Data ---
+bot_working = True
+gate_status = {
+    'chk': True, 'str': True, 'pay': True, 'sh': True, 
+    'filestr': True, 'file': True, 'chk3': True, 'pay5': True
+}
+
+def initialize_json(filename, default_data):
+    if not os.path.exists(filename):
+        with open(filename, 'w') as f:
+            json.dump(default_data, f, indent=4)
 
 for f in ['data.json', 'free.json', 'banned_users.json', 'credits.json', 'user_proxies.json']:
-    init_json(f, {} if 'json' in f else [])
+    initialize_json(f, {} if 'json' in f else [])
 
 # —————————— KEYBOARDS —————————— #
-def main_menu():
+def create_main_menu():
     markup = types.InlineKeyboardMarkup(row_width=2)
     markup.add(
         types.InlineKeyboardButton("👑 OWNER", callback_data="admin"),
@@ -34,6 +62,37 @@ def main_menu():
         types.InlineKeyboardButton("🔍 SCRAP", callback_data="scr"),
         types.InlineKeyboardButton("⚙️ COMBO", callback_data="combo")
     )
+    return markup
+
+# —————————— HANDLERS —————————— #
+@bot.message_handler(commands=['start'])
+def start_handler(message):
+    bot.send_video(
+        message.chat.id,
+        video="https://t.me/cccjwowowow/85",
+        caption="<b>𝘄𝗲𝗹𝗰𝗼𝗺𝗲 𝘁𝗼 𝘁𝗵𝗲 𝗯𝗼𝘁 ❤️🇪🇬</b>\n\nStatus: 🟢 <code>Online</code>",
+        reply_markup=create_main_menu()
+    )
+
+@bot.callback_query_handler(func=lambda call: True)
+def callback_handler(call):
+    if call.data == "cc":
+        bot.edit_message_caption("─────── 💳 <b>Card Check Menu</b> ───────\n\n/chk3 - Braintree Dual\n/str - Stripe Charge\n/sh - Shopify", 
+                                 call.message.chat.id, call.message.message_id, reply_markup=create_main_menu())
+    elif call.data == "admin":
+        if call.from_user.id == admin_id:
+            bot.edit_message_caption("👑 <b>Admin Panel</b>\n\n/admin - Control\n/gates - Gateways\n/grant - Add Credits", 
+                                     call.message.chat.id, call.message.message_id, reply_markup=create_main_menu())
+        else:
+            bot.answer_callback_query(call.id, "❌ Only Owner can access!", show_alert=True)
+
+# —————————— START THE BOT —————————— #
+if __name__ == '__main__':
+    print("▶️ Bot script started successfully on Render.")
+    try:
+        bot.send_message(admin_id, "✅ <b>Bot is now LIVE!</b>\nBraintree Conflict Fixed.")
+    except: pass
+    bot.infinity_polling(none_stop=True)
     return markup
 
 # —————————— COMMAND HANDLERS —————————— #
