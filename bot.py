@@ -4,35 +4,40 @@ from telebot.types import LabeledPrice
 import random, string
 from datetime import datetime, timedelta
 
-# —————————— FIXED IMPORTS & CONFLICT RESOLUTION —————————— #
-import braintree as braintree_lib # Official Library (Conflict Fixed)
-
+# —————————— FIXED IMPORTS —————————— #
+# Official Braintree library ko import karne ka sahi tarika
 try:
-    # Aapne jo file rename ki (my_braintree.py), uska function yahan aayega
+    import braintree as braintree_lib
+except ImportError:
+    print("⚠️ Asli Braintree library install nahi hai. Requirements.txt check karein.")
+
+# Aapki local files ko import karne ka tarika
+try:
+    # Yaad rahe: GitHub par braintree.py ka naam badal kar my_braintree.py kar dena
     from my_braintree import process_card_b 
     from braintree_dual_checker import ali1
     from check_bins_fun import extract_bins
     from braintree_Api import main as api_main
 except ImportError as e:
-    print(f"⚠️ Warning: Missing local module: {e}")
+    print(f"⚠️ Warning: Missing local modules: {e}")
 
 # —————————— BOT CONFIGURATION —————————— #
 TOKEN = "8662492230:AAHerwQ0PlavJ3rwn7zxsE6g-MnmJbJqXrg"
-admin_id = 1677950104
+admin_id = 1677950104 # Aapki ID
 bot = telebot.TeleBot(TOKEN, parse_mode='html')
 
-# —————————— INITIALIZE SYSTEM FILES —————————— #
+# —————————— DATA INITIALIZATION —————————— #
 def initialize_json(filename, default_data):
     if not os.path.exists(filename):
         with open(filename, 'w') as f:
             json.dump(default_data, f, indent=4)
 
-json_list = ['data.json', 'free.json', 'banned_users.json', 'credits.json', 'user_proxies.json']
-for filename in json_list:
-    initialize_json(filename, {} if 'json' in filename else [])
+json_files = ['data.json', 'free.json', 'banned_users.json', 'credits.json', 'user_proxies.json']
+for jf in json_files:
+    initialize_json(jf, {} if 'json' in jf else [])
 
 # —————————— KEYBOARDS —————————— #
-def create_main_menu():
+def main_menu():
     markup = types.InlineKeyboardMarkup(row_width=2)
     markup.add(
         types.InlineKeyboardButton("👑 OWNER", callback_data="admin"),
@@ -44,210 +49,36 @@ def create_main_menu():
 
 # —————————— COMMAND HANDLERS —————————— #
 @bot.message_handler(commands=['start'])
-def start_handler(message):
+def start_cmd(message):
     bot.send_video(
         message.chat.id,
         video="https://t.me/cccjwowowow/85",
-        caption="<b>𝘄𝗲𝗹𝗰𝗼𝗺𝗲 𝘁𝗼 𝘁𝗵𝗲 𝗯𝗼𝘁 ❤️🇪🇬</b>\n\nStatus: 🟢 <code>Online</code>\nAdmin ID: <code>1677950104</code>",
-        reply_markup=create_main_menu()
+        caption="<b>𝘄𝗲𝗹𝗰𝗼𝗺𝗲 𝘁𝗼 𝘁𝗵𝗲 𝗯𝗼𝘁 ❤️🇪🇬</b>\n\nStatus: 🟢 <code>Online</code>\nAdmin: <a href='tg://user?id=1677950104'>Boss</a>",
+        reply_markup=main_menu()
     )
 
 @bot.callback_query_handler(func=lambda call: True)
-def callback_handler(call):
+def handle_callbacks(call):
     if call.data == "cc":
         bot.edit_message_caption("─────── 💳 <b>Card Check Menu</b> ───────\n\n/chk3 - Braintree Dual\n/str - Stripe Charge\n/bin - BIN Lookup", 
-                                 call.message.chat.id, call.message.message_id, reply_markup=create_main_menu())
+                                 call.message.chat.id, call.message.message_id, reply_markup=main_menu())
+    
     elif call.data == "admin":
         if call.from_user.id == admin_id:
-            bot.edit_message_caption("👑 <b>Admin Control Panel</b>\n\n/admin - Bot Control\n/gates - Control Gates\n/grant - Add Credits", 
-                                     call.message.chat.id, call.message.message_id, reply_markup=create_main_menu())
+            bot.edit_message_caption("👑 <b>Admin Control Panel</b>\n\n/admin - Control\n/gates - Control Gates\n/grant - Add Credits", 
+                                     call.message.chat.id, call.message.message_id, reply_markup=main_menu())
         else:
             bot.answer_callback_query(call.id, "❌ Only Owner Access!", show_alert=True)
 
 # —————————— START THE ENGINE —————————— #
 if __name__ == '__main__':
-    print("▶️ Bot script is LIVE on Render.")
+    print("🚀 Bot script starting on Render...")
     try:
-        bot.send_message(admin_id, "✅ <b>Bot is now ONLINE!</b>\nAll modules are linked and conflict is resolved.")
+        bot.send_message(admin_id, "✅ <b>Bot is now ONLINE!</b>\nModule conflict fixed. Admin ID <code>1677950104</code> is active.")
     except:
         pass
     bot.infinity_polling(none_stop=True)
-TOKEN = "8662492230:AAHerwQ0PlavJ3rwn7zxsE6g-MnmJbJqXrg"
-admin_id = 1677950104
-bot = telebot.TeleBot(TOKEN, parse_mode='html')
-
-# --- Status & Data ---
-bot_working = True
-gate_status = {
-    'chk': True, 'str': True, 'pay': True, 'sh': True, 
-    'filestr': True, 'file': True, 'chk3': True, 'pay5': True
-}
-
-def initialize_json(filename, default_data):
-    if not os.path.exists(filename):
-        with open(filename, 'w') as f:
-            json.dump(default_data, f, indent=4)
-
-for f in ['data.json', 'free.json', 'banned_users.json', 'credits.json', 'user_proxies.json']:
-    initialize_json(f, {} if 'json' in f else [])
-
-# —————————— KEYBOARDS —————————— #
-def create_main_menu():
-    markup = types.InlineKeyboardMarkup(row_width=2)
-    markup.add(
-        types.InlineKeyboardButton("👑 OWNER", callback_data="admin"),
-        types.InlineKeyboardButton("💳 CC CHECK", callback_data="cc"),
-        types.InlineKeyboardButton("🔍 SCRAP", callback_data="scr"),
-        types.InlineKeyboardButton("⚙️ COMBO", callback_data="combo")
-    )
-    return markup
-
-# —————————— HANDLERS —————————— #
-@bot.message_handler(commands=['start'])
-def start_handler(message):
-    bot.send_video(
-        message.chat.id,
-        video="https://t.me/cccjwowowow/85",
-        caption="<b>𝘄𝗲𝗹𝗰𝗼𝗺𝗲 𝘁𝗼 𝘁𝗵𝗲 𝗯𝗼𝘁 ❤️🇪🇬</b>\n\nStatus: 🟢 <code>Online</code>",
-        reply_markup=create_main_menu()
-    )
-
-@bot.callback_query_handler(func=lambda call: True)
-def callback_handler(call):
-    if call.data == "cc":
-        bot.edit_message_caption("─────── 💳 <b>Card Check Menu</b> ───────\n\n/chk3 - Braintree Dual\n/str - Stripe Charge\n/sh - Shopify", 
-                                 call.message.chat.id, call.message.message_id, reply_markup=create_main_menu())
-    elif call.data == "admin":
-        if call.from_user.id == admin_id:
-            bot.edit_message_caption("👑 <b>Admin Panel</b>\n\n/admin - Control\n/gates - Gateways\n/grant - Add Credits", 
-                                     call.message.chat.id, call.message.message_id, reply_markup=create_main_menu())
-        else:
-            bot.answer_callback_query(call.id, "❌ Only Owner can access!", show_alert=True)
-
-# —————————— START THE BOT —————————— #
-if __name__ == '__main__':
-    print("▶️ Bot script started successfully on Render.")
-    try:
-        bot.send_message(admin_id, "✅ <b>Bot is now LIVE!</b>\nBraintree Conflict Fixed.")
-    except: pass
-    bot.infinity_polling(none_stop=True)
-    return markup
-
-# —————————— COMMAND HANDLERS —————————— #
-@bot.message_handler(commands=['start'])
-def start(message):
-    bot.send_video(
-        message.chat.id,
-        video="https://t.me/cccjwowowow/85",
-        caption="<b>𝘄𝗲𝗹𝗰𝗼𝗺𝗲 𝘁𝗼 𝘁𝗵𝗲 𝗯𝗼𝘁 ❤️🇪🇬</b>\n\nStatus: 🟢 <code>Online</code>",
-        reply_markup=main_menu()
-    )
-
-@bot.callback_query_handler(func=lambda call: True)
-def handle_query(call):
-    if call.data == "cc":
-        bot.edit_message_caption("─────── 💳 <b>Card Checker</b> ───────\n\n/chk3 - Braintree Dual\n/str - Stripe\n/bin - BIN Lookup", 
-                                 call.message.chat.id, call.message.message_id, reply_markup=main_menu())
-    
-    elif call.data == "admin":
-        if call.from_user.id == admin_id:
-            bot.edit_message_caption("👑 <b>Admin Panel</b>\n\n/admin - Status\n/gates - Control\n/grant - Add Sub", 
-                                     call.message.chat.id, call.message.message_id, reply_markup=main_menu())
-        else:
-            bot.answer_callback_query(call.id, "❌ Not an Owner!", show_alert=True)
-
-# —————————— START BOT —————————— #
-if __name__ == '__main__':
-    print("▶️ Bot is Live on Render!")
-    try:
-        bot.send_message(admin_id, "✅ <b>Bot Started!</b>\nAdmin ID check pass.")
-    except: pass
-    bot.infinity_polling()
-ror, json.JSONDecodeError):
-        return False, "𝗲𝗿𝗿𝗼𝗿 𝗰𝗵𝗲𝗰𝗸𝗶𝗻𝗴 𝘀𝘂𝗯𝘀𝗰𝗿𝗶𝗽𝘁𝗶𝗼𝗻"
-
-def create_buy_keyboard():
-    markup = types.InlineKeyboardMarkup()
-    markup.add(types.InlineKeyboardButton("💰 𝗯𝘂𝘆 𝘀𝘂𝗯𝘀𝗰𝗿𝗶𝗽𝘁𝗶𝗼𝗻", callback_data="Buy"))
-    return markup
-#—————–————–———————––———#
-if not os.path.exists("Temps"):
-	os.makedirs("Temps")
-#—————–————–———————––———#
-def create_main_menu_keyboard():
-    markup = types.InlineKeyboardMarkup()
-    markup.add(types.InlineKeyboardButton("𝗼𝘄𝗻𝗲𝗿", callback_data="admin"),
-               types.InlineKeyboardButton("𝗼𝘁𝗵𝗲𝗿", callback_data="other"))
-    markup.add(types.InlineKeyboardButton("𝗰𝗰 𝗰𝗵𝗲𝗰𝗸", callback_data="cc"))
-    markup.add(types.InlineKeyboardButton("𝘀𝗰𝗿𝗮𝗽", callback_data="scr"))
-    markup.add(types.InlineKeyboardButton("𝗰𝗼𝗺𝗯𝗼 𝗵𝗲𝗹𝗽𝗲𝗿", callback_data="combo"))
-    markup.add(types.InlineKeyboardButton("🛒 𝗦𝘁𝗼𝗿𝗲", callback_data="open_store"))
-    markup.add(types.InlineKeyboardButton("💰 𝗯𝘂𝘆 𝘀𝘂𝗯𝘀𝗰𝗿𝗶𝗽𝘁𝗶𝗼𝗻", callback_data="Buy"))
-
-    # زر جديد للكريديتس
-    markup.add(types.InlineKeyboardButton("🎁 𝗖𝗿𝗲𝗱𝗶𝘁𝘀", callback_data="credits_menu"))
-
-    return markup
-
-
-def create_back_button_keyboard():
-	markup = types.InlineKeyboardMarkup()
-	markup.add(types.InlineKeyboardButton("𝗯𝗮𝗰𝗸", callback_data="back"))
-	return markup
-
-CHANNEL_ID = -1003199441616   # 👈 لازم تجيب ID القناة الخاصة
-
-import json
-import functools
-from telebot import types # Make sure you have this import
-
-# --- Make sure these variables are defined somewhere in your code ---
-# bot = telebot.TeleBot("YOUR_BOT_TOKEN")
-# CHANNEL_ID = "@your_channel_username"  # Or the chat ID like -100123456789
-# admin_id = 12345678 # Your admin ID
-
-# You can create the file if it doesn't exist
-
-
-#—————–————–———————––———#
-@bot.message_handler(commands=['start'])
-def start_handler(message):
-    user_id = message.from_user.id
-    chat_id = message.chat.id
-
-    # --- (هنا يبقى كود تسجيل المستخدمين الجدد والـ referral كما هو) ---
-    try:
-        if len(message.text.split()) > 1:
-            ref_id = message.text.split()[1].replace('ref_', '')
-            if ref_id.isdigit():
-                # ... (بقية كود الـ referral الخاص بك)
-                pass # أبقِ على الكود الأصلي هنا
-    except Exception as e:
-        print(f"Referral error: {e}")
-
-    with open('free.json', 'r+') as f:
-        try:
-            free_users = json.load(f)
-        except json.JSONDecodeError:
-            free_users = []
-        if user_id not in free_users:
-            free_users.append(user_id)
-            f.seek(0)
-            json.dump(free_users, f, indent=4)
-    # --- نهاية الكود الأصلي ---
-
-    # --- START: Typing Effect Logic ---
-
-    # 1. تحديد النص الكامل للرسالة
-    is_subscribed, status = check_subscription(user_id)
-    full_caption = f"""
-𝘄𝗲𝗹𝗰𝗼𝗺𝗲 𝘁𝗼 𝘁𝗵𝗲 𝗯𝗼𝘁 ❤️🇪🇬
-"""
-
-    # 2. إرسال الفيديو مع نص مبدئي (placeholder)
-    sent_message = bot.send_video(
-        chat_id,
-        video="https://t.me/cccjwowowow/85",
+    video="https://t.me/cccjwowowow/85",
         caption="⏳"
     )
 
