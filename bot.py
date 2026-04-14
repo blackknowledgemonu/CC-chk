@@ -49,7 +49,7 @@ import random, string
 from datetime import datetime, timedelta
 import shopify_charge
 #———–———–———–———–———–———#
-bot = telebot.TeleBot("8473991628:AAEnMvBBSLi5Jc10dpaSftpZKuzTRFZEGiU", parse_mode='html')
+bot = telebot.TeleBot("8662492230:AAHerwQ0PlavJ3rwn7zxsE6g-MnmJbJqXrg", parse_mode='html')
 admin_id = 1677950104
 BOT_USERNAME = bot.get_me().username
 
