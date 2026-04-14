@@ -1,6 +1,5 @@
-python-telegram-bot
 pyTelegramBotAPI
+braintree
 requests
 beautifulsoup4
-braintree
 faker
