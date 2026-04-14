@@ -1,6 +1,4 @@
 pyTelegramBotAPI
 braintree
 python-telegram-bot
-braintree_Api
-bin_info_v1
-process_card_p
+braintree
