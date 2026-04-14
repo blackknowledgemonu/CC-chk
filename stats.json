@@ -1,0 +1,30 @@
+{
+    "total_checked": 1,
+    "gate_stats": {
+        "str": {
+            "total": 0,
+            "time": 0,
+            "charged": 0
+        },
+        "chk": {
+            "total": 0,
+            "time": 0,
+            "charged": 0
+        },
+        "pay": {
+            "total": 0,
+            "time": 0,
+            "charged": 0
+        },
+        "pay5": {
+            "total": 0,
+            "time": 0,
+            "charged": 0
+        },
+        "sh": {
+            "total": 1,
+            "time": 3.3728349208831787,
+            "charged": 0
+        }
+    }
+}

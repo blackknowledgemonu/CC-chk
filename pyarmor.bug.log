@@ -1,0 +1,12 @@
+[BUG]: no found input "C:\Users\ADMINI~1\AppData\Local\Temp\shopify"
+
+## Command Line
+C:\Python313\Scripts\pyarmor gen --output C:\Users\ADMINI~1\AppData\Local\Temp\encrypted C:\Users\ADMINI~1\AppData\Local\Temp\shopify 15$ (2).py
+
+## Environments
+Python 3.13.7
+Pyarmor 9.1.9 (trial), 000000, non-profits
+Platform windows.x86_64
+Native windows.amd64
+Home C:\Users\Administrator\.pyarmor
+

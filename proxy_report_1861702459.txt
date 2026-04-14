@@ -1,0 +1,76 @@
+🌐 Proxy Health Report 🌐
+━━━━━━━━━━━━━━━━━━━━━
+✅ Alive: 7
+❌ Dead: 0
+📌 Total Checked: 7
+━━━━━━━━━━━━━━━━━━━━━
+
+107.150.117.60:19280 | HTTP | Ping: 76ms | TCP: Alive ✅ | Status: LIVE ✅ (7/8)
+   https://api.ipify.org?format=json => ✅
+   https://ifconfig.me/ip => ✅
+   https://httpbin.org/ip => ✅
+   https://checkip.amazonaws.com => ✅
+   https://icanhazip.com => ✅
+   https://www.google.com => ✅
+   https://www.wikipedia.org => ⚠️ 403
+   https://www.cloudflare.com => ✅
+
+118.193.58.55:19462 | HTTP | Ping: 74ms | TCP: Alive ✅ | Status: LIVE ✅ (7/8)
+   https://api.ipify.org?format=json => ✅
+   https://ifconfig.me/ip => ✅
+   https://httpbin.org/ip => ✅
+   https://checkip.amazonaws.com => ✅
+   https://icanhazip.com => ✅
+   https://www.google.com => ✅
+   https://www.wikipedia.org => ⚠️ 403
+   https://www.cloudflare.com => ✅
+
+118.193.59.74:19380 | HTTP | Ping: 89ms | TCP: Alive ✅ | Status: LIVE ✅ (7/8)
+   https://api.ipify.org?format=json => ✅
+   https://ifconfig.me/ip => ✅
+   https://httpbin.org/ip => ✅
+   https://checkip.amazonaws.com => ✅
+   https://icanhazip.com => ✅
+   https://www.google.com => ✅
+   https://www.wikipedia.org => ⚠️ 403
+   https://www.cloudflare.com => ✅
+
+118.193.58.55:19412 | HTTP | Ping: 78ms | TCP: Alive ✅ | Status: LIVE ✅ (6/8)
+   https://api.ipify.org?format=json => ✅
+   https://ifconfig.me/ip => ✅
+   https://httpbin.org/ip => ❌
+   https://checkip.amazonaws.com => ✅
+   https://icanhazip.com => ✅
+   https://www.google.com => ✅
+   https://www.wikipedia.org => ⚠️ 403
+   https://www.cloudflare.com => ✅
+
+45.43.62.178:19903 | HTTP | Ping: 1085ms | TCP: Alive ✅ | Status: LIVE ✅ (6/8)
+   https://api.ipify.org?format=json => ✅
+   https://ifconfig.me/ip => ✅
+   https://httpbin.org/ip => ❌
+   https://checkip.amazonaws.com => ✅
+   https://icanhazip.com => ✅
+   https://www.google.com => ✅
+   https://www.wikipedia.org => ⚠️ 403
+   https://www.cloudflare.com => ✅
+
+43.134.12.116:19146 | HTTP | Ping: 197ms | TCP: Alive ✅ | Status: LIVE ✅ (7/8)
+   https://api.ipify.org?format=json => ✅
+   https://ifconfig.me/ip => ✅
+   https://httpbin.org/ip => ✅
+   https://checkip.amazonaws.com => ✅
+   https://icanhazip.com => ✅
+   https://www.google.com => ✅
+   https://www.wikipedia.org => ⚠️ 403
+   https://www.cloudflare.com => ✅
+
+118.193.59.74:19372 | HTTP | Ping: 72ms | TCP: Alive ✅ | Status: LIVE ✅ (5/8)
+   https://api.ipify.org?format=json => ✅
+   https://ifconfig.me/ip => ❌
+   https://httpbin.org/ip => ✅
+   https://checkip.amazonaws.com => ✅
+   https://icanhazip.com => ✅
+   https://www.google.com => ✅
+   https://www.wikipedia.org => ⚠️ 403
+   https://www.cloudflare.com => ❌

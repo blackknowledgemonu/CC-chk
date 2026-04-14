@@ -1,5 +1,7 @@
-pyTelegramBotAPI
-braintree
-requests
-beautifulsoup4
-faker
+telebot
+telethon
+pyrogram
+asyncio
+bs4
+fake_useragent
+googlesearch-python

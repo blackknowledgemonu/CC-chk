@@ -1,0 +1,35 @@
+5872 MainProcess 2025-10-12 14:18:46,903
+Traceback (most recent call last):
+  File "C:\Python313\Lib\site-packages\pyarmor\cli\core\__init__.py", line 75, in _import_pytransform3
+    return __import__(
+        'pytransform3', globals=globals(), locals=locals(),
+        fromlist=('__pyarmor__',), level=1
+    )
+ModuleNotFoundError: No module named 'pyarmor.cli.core.pytransform3'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Python313\Lib\site-packages\pyarmor\cli\__main__.py", line 735, in main
+    main_entry(sys.argv[1:])
+    ~~~~~~~~~~^^^^^^^^^^^^^^
+  File "C:\Python313\Lib\site-packages\pyarmor\cli\__main__.py", line 723, in main_entry
+    return args.func(ctx, args)
+           ~~~~~~~~~^^^^^^^^^^^
+  File "C:\Python313\Lib\site-packages\pyarmor\cli\__main__.py", line 236, in cmd_gen
+    builder.process(options)
+    ~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Python313\Lib\site-packages\pyarmor\cli\generate.py", line 155, in process
+    Pytransform3.pre_build(self.ctx)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Python313\Lib\site-packages\pyarmor\cli\core\__init__.py", line 117, in pre_build
+    m = Pytransform3.init(ctx)
+  File "C:\Python313\Lib\site-packages\pyarmor\cli\core\__init__.py", line 95, in init
+    Pytransform3._pytransform3 = m = _import_pytransform3()
+                                     ~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Python313\Lib\site-packages\pyarmor\cli\core\__init__.py", line 82, in _import_pytransform3
+    return __import__(
+        modname, globals=globals(), locals=locals(),
+        fromlist=('__pyarmor__',), level=1
+    )
+ModuleNotFoundError: No module named 'pyarmor.cli.core.windows'
