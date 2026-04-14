@@ -5,36 +5,36 @@ import random, string
 from datetime import datetime, timedelta
 
 # —————————— FIXED IMPORTS —————————— #
-# Official Braintree library ko import karne ka sahi tarika
+# Asli Braintree library ko import karne ka sahi tarika
 try:
     import braintree as braintree_lib
 except ImportError:
-    print("⚠️ Asli Braintree library install nahi hai. Requirements.txt check karein.")
+    print("⚠️ Official braintree library not found!")
 
-# Aapki local files ko import karne ka tarika
+# Aapki local files ka connection
 try:
-    # Yaad rahe: GitHub par braintree.py ka naam badal kar my_braintree.py kar dena
+    # Jo naam aapne badla hai (my_braintree.py)
     from my_braintree import process_card_b 
     from braintree_dual_checker import ali1
     from check_bins_fun import extract_bins
     from braintree_Api import main as api_main
 except ImportError as e:
-    print(f"⚠️ Warning: Missing local modules: {e}")
+    print(f"⚠️ Local File Linking Error: {e}")
 
-# —————————— BOT CONFIGURATION —————————— #
+# —————————— BOT SETTINGS —————————— #
 TOKEN = "8662492230:AAHerwQ0PlavJ3rwn7zxsE6g-MnmJbJqXrg"
-admin_id = 1677950104 # Aapki ID
+admin_id = 1677950104 # Aapki Chat ID
 bot = telebot.TeleBot(TOKEN, parse_mode='html')
 
-# —————————— DATA INITIALIZATION —————————— #
+# —————————— INITIALIZE JSON FILES —————————— #
 def initialize_json(filename, default_data):
     if not os.path.exists(filename):
         with open(filename, 'w') as f:
             json.dump(default_data, f, indent=4)
 
-json_files = ['data.json', 'free.json', 'banned_users.json', 'credits.json', 'user_proxies.json']
-for jf in json_files:
-    initialize_json(jf, {} if 'json' in jf else [])
+json_list = ['data.json', 'free.json', 'banned_users.json', 'credits.json', 'user_proxies.json']
+for f in json_list:
+    initialize_json(f, {} if 'json' in f else [])
 
 # —————————— KEYBOARDS —————————— #
 def main_menu():
@@ -53,7 +53,7 @@ def start_cmd(message):
     bot.send_video(
         message.chat.id,
         video="https://t.me/cccjwowowow/85",
-        caption="<b>𝘄𝗲𝗹𝗰𝗼𝗺𝗲 𝘁𝗼 𝘁𝗵𝗲 𝗯𝗼𝘁 ❤️🇪🇬</b>\n\nStatus: 🟢 <code>Online</code>\nAdmin: <a href='tg://user?id=1677950104'>Boss</a>",
+        caption="<b>𝘄𝗲𝗹𝗰𝗼𝗺𝗲 𝘁𝗼 𝘁𝗵𝗲 𝗯𝗼𝘁 ❤️🇪🇬</b>\n\nStatus: 🟢 <code>Online</code>\nAdmin ID: <code>1677950104</code>",
         reply_markup=main_menu()
     )
 
@@ -65,206 +65,21 @@ def handle_callbacks(call):
     
     elif call.data == "admin":
         if call.from_user.id == admin_id:
-            bot.edit_message_caption("👑 <b>Admin Control Panel</b>\n\n/admin - Control\n/gates - Control Gates\n/grant - Add Credits", 
+            bot.edit_message_caption("👑 <b>Admin Panel</b>\n\n/admin - Control Panel\n/gates - Manage Gates\n/grant - Add Credits", 
                                      call.message.chat.id, call.message.message_id, reply_markup=main_menu())
         else:
-            bot.answer_callback_query(call.id, "❌ Only Owner Access!", show_alert=True)
+            bot.answer_callback_query(call.id, "❌ Not Owner Access!", show_alert=True)
 
 # —————————— START THE ENGINE —————————— #
 if __name__ == '__main__':
-    print("🚀 Bot script starting on Render...")
+    print("▶️ Bot script is running on Render...")
     try:
-        bot.send_message(admin_id, "✅ <b>Bot is now ONLINE!</b>\nModule conflict fixed. Admin ID <code>1677950104</code> is active.")
+        # Admin ko success message bhejna
+        bot.send_message(admin_id, "✅ <b>Bot is now ONLINE!</b>\nBraintree module conflict fixed successfully.")
     except:
         pass
     bot.infinity_polling(none_stop=True)
-    video="https://t.me/cccjwowowow/85",
-        caption="⏳"
-    )
-
-    # 3. حلقة لتعديل النص حرفًا بعد حرف
-    typed_caption = ""
-    for char in full_caption:
-        typed_caption += char
-        try:
-            # تعديل نص الفيديو (الكابشن)
-            bot.edit_message_caption(
-                caption=typed_caption,
-                chat_id=chat_id,
-                message_id=sent_message.message_id
-            )
-            time.sleep(0.04)  # يمكنك تعديل سرعة الكتابة من هنا (رقم أصغر = أسرع)
-        except telebot.apihelper.ApiTelegramException as e:
-            # تجاهل خطأ "الرسالة لم تتغير" لتجنب توقف البوت
-            if 'message is not modified' in str(e):
-                pass
-            else:
-                print(f"Error editing caption: {e}")
-                break # الخروج من الحلقة في حالة وجود خطأ آخر
-
-    # 4. التعديل الأخير لإضافة الأزرار (الكيبورد)
-    try:
-        bot.edit_message_reply_markup(
-            chat_id=chat_id,
-            message_id=sent_message.message_id,
-            reply_markup=create_main_menu_keyboard()
-        )
-    except Exception as e:
-        print(f"Error adding final keyboard: {e}")
-
-    # --- END: Typing Effect Logic ---
-
-
-
-@bot.callback_query_handler(func=lambda call: call.data == "admin")
-def admin_callback(call):
-    chat_id = call.message.chat.id
-    message_id = call.message.message_id
-    if chat_id == admin_id:
-        bot.edit_message_caption("""
-─────── 👑 𝗔𝗱𝗺𝗶𝗻 𝗖𝗼𝗻𝘁𝗿𝗼𝗹 𝗣𝗮𝗻𝗲𝗹 ───────
-
-⚙️ 𝗕𝗼𝘁 𝗠𝗮𝗻𝗮𝗴𝗲𝗺𝗲𝗻𝘁
-────────────────────────
- •  /admin     ➟ 𝗕𝗼𝘁 𝗦𝘁𝗮𝘁𝘂𝘀 (𝗢𝗻/𝗢𝗳𝗳)
- •  /gates     ➟ 𝗚𝗮𝘁𝗲𝘄𝗮𝘆 𝗖𝗼𝗻𝘁𝗿𝗼𝗹
- •  /dashboard ➟ 𝗩𝗶𝗲𝘄 𝗕𝗼𝘁 𝗦𝘁𝗮𝘁𝘀
- •  /broadcast ➟ 𝗦𝗲𝗻𝗱 𝗠𝗲𝘀𝘀𝗮𝗴𝗲 𝘁𝗼 𝗔𝗹𝗹
-
-👥 𝗨𝘀𝗲𝗿 & 𝗦𝘂𝗯𝘀𝗰𝗿𝗶𝗽𝘁𝗶𝗼𝗻𝘀
-────────────────────────
- •  /grant     ➟ 𝗚𝗿𝗮𝗻𝘁 𝗦𝘂𝗯𝘀𝗰𝗿𝗶𝗽𝘁𝗶𝗼𝗻
- •  /listusers ➟ 𝗟𝗶𝘀𝘁 𝗔𝗹𝗹 𝗦𝘂𝗯𝘀𝗰𝗿𝗶𝗯𝗲𝗿𝘀
- •  /ban       ➟ 𝗕𝗮𝗻 𝗮 𝗨𝘀𝗲𝗿
- •  /unban     ➟ 𝗨𝗻𝗯𝗮𝗻 𝗮 𝗨𝘀𝗲𝗿
- 
-🛒 𝗦𝘁𝗼𝗿𝗲 & 𝗞𝗲𝘆𝘀
-────────────────────────
- •  /addproduct ➟ 𝗔𝗱𝗱 𝗣𝗿𝗼𝗱𝘂𝗰𝘁 𝘁𝗼 𝗦𝘁𝗼𝗿𝗲
- •  /code       ➟ 𝗖𝗿𝗲𝗮𝘁𝗲 𝗦𝘂𝗯𝘀𝗰𝗿𝗶𝗽𝘁𝗶𝗼𝗻 𝗞𝗲𝘆
-────────────────────────
-        """,chat_id, message_id, reply_markup=create_back_button_keyboard())
-    else:
-        bot.answer_callback_query(call.id, text="𝘆𝗼𝘂 𝗮𝗿𝗲 𝗻𝗼𝘁 𝗮𝗻 𝗼𝘄𝗻𝗲𝗿.", show_alert=True)
-
-@bot.callback_query_handler(func=lambda call: call.data == "cc")
-def cards_callback(call):
-	chat_id = call.message.chat.id
-	message_id = call.message.message_id
-	bot.edit_message_caption("""
-─────── 💳 𝐂𝐚𝐫𝐝 𝐂𝐡𝐞𝐜𝐤 𝐌𝐞𝐧𝐮 ───────
-
-✨ 𝗦𝗶𝗻𝗴𝗹𝗲 𝗖𝗵𝗲𝗰𝗸𝗲𝗿𝘀 (𝗙𝗿𝗲𝗲)
-────────────────────────
- •  /chk3   ➟ 𝗕𝗿𝗮𝗶𝗻𝘁𝗿𝗲𝗲
- •  /str   ➟ 𝗦𝘁𝗿𝗶𝗽𝗲
- •  /pay   ➟ 𝗣𝗮𝘆𝗣𝗮𝗹 (OFF)
- •  /pay5  ➟ 𝗣𝗮𝘆𝗣𝗮𝗹 𝟱$
- •  /sh    ➟ 𝗦𝗵𝗼𝗽𝗶𝗳𝘆
-
-🚀 𝗠𝗮𝘀𝘀 𝗖𝗵𝗲𝗰𝗸 (𝟱 𝗖𝗮𝗿𝗱𝘀 𝗠𝗮𝘅)
-────────────────────────
- •  /mass_chk  ➟ 𝗕𝗿𝗮𝗶𝗻𝘁𝗿𝗲𝗲 (OFF)
- •  /mass_str  ➟ 𝗦𝘁𝗿𝗶𝗽𝗲
- •  /mass_pay  ➟ 𝗣𝗮𝘆𝗣𝗮𝗹 (OFF)
- •  /mass_pay5 ➟ 𝗣𝗮𝘆𝗣𝗮𝗹 𝟱$
- •  /mass_sh   ➟ 𝗦𝗵𝗼𝗽𝗶𝗳𝘆
- •  /mass_chk3 ➟ 𝗕𝗿𝗮𝗶𝗻𝘁𝗿𝗲𝗲 V2
-
-🌟 𝗙𝗶𝗹𝗲 𝗮𝗻𝗱 𝗣𝗿𝗲𝗺𝗶𝘂𝗺 𝗙𝗲𝗮𝘁𝘂𝗿𝗲𝘀
-────────────────────────
- •  /ckall    ➟ 𝗖𝗵𝗲𝗰𝗸 𝗔𝗟𝗟 𝗚𝗮𝘁𝗲𝘀 (𝗦𝗶𝗻𝗴𝗹𝗲)
- •  /filechk3     ➟ 𝗕𝗿𝗮𝗶𝗻𝘁𝗿𝗲𝗲 𝗙𝗶𝗹𝗲
- •  /filestr  ➟ 𝗦𝘁𝗿𝗶𝗽𝗲 𝗙𝗶𝗹𝗲
- •  /filep    ➟ 𝗣𝗮𝘆𝗣𝗮𝗹 𝗙𝗶𝗹𝗲 (OFF)
- •  /payf     ➟ 𝗣𝗮𝘆𝗣𝗮𝗹 𝟱$ 𝗙𝗶𝗹𝗲
- •  /shf      ➟ 𝗦𝗵𝗼𝗽𝗶𝗳𝘆 𝗙𝗶𝗹𝗲
-────────────────────────
-	""", chat_id, message_id, reply_markup=create_back_button_keyboard())
-
-@bot.callback_query_handler(func=lambda call: call.data == "scr")
-def scarp_callback(call):
-    chat_id = call.message.chat.id
-    message_id = call.message.message_id
-    bot.edit_message_caption("""
-─────── 🔍 𝗦𝗰𝗿𝗮𝗽𝗶𝗻𝗴 & 𝗜𝗻𝗳𝗼 𝗧𝗼𝗼𝗹𝘀 ───────
-
-🛠️ 𝗔𝘂𝘁𝗼 𝗚𝗲𝗻𝗲𝗿𝗮𝘁𝗶𝗼𝗻
-────────────────────────
- •  /fake  ➟ 𝗚𝗲𝗻𝗲𝗿𝗮𝘁𝗲 𝗨𝗦 𝗜𝗻𝗳𝗼𝗿𝗺𝗮𝘁𝗶𝗼𝗻
- •  /if    ➟ 𝗚𝗲𝗻𝗲𝗿𝗮𝘁𝗲 𝗣𝗮𝘆𝗣𝗮𝗹 𝗜𝗻𝗳𝗼
-
-📡 𝗖𝗮𝗿𝗱 𝗦𝗰𝗿𝗮𝗽𝗽𝗶𝗻𝗴
-────────────────────────
- •  /scr   ➟ 𝗦𝗰𝗿𝗮𝗽 𝗖𝗮𝗿𝗱𝘀 𝗳𝗿𝗼𝗺 𝗖𝗵𝗮𝗻𝗻𝗲𝗹𝘀
-────────────────────────
-    """, chat_id, message_id, reply_markup=create_back_button_keyboard())
-
-@bot.callback_query_handler(func=lambda call: call.data == "combo")
-def combo_callback(call):
-    chat_id = call.message.chat.id
-    message_id = call.message.message_id
-    bot.edit_message_caption("""
-─────── ⚙️ 𝗖𝗼𝗺𝗯𝗼 𝗙𝗶𝗹𝗲 𝗧𝗼𝗼𝗹𝘀 ───────
-
-🔬 𝗔𝗻𝗮𝗹𝘆𝘇𝗲 & 𝗙𝗶𝗹𝘁𝗲𝗿
-────────────────────────
- •  /cb     ➟ 𝗖𝗵𝗲𝗰𝗸 𝗙𝗶𝗹𝗲 𝗕𝗜𝗡𝘀
- •  /len    ➟ 𝗖𝗼𝘂𝗻𝘁 𝗙𝗶𝗹𝗲 𝗟𝗶𝗻𝗲𝘀
- •  /filter ➟ 𝗘𝘅𝘁𝗿𝗮𝗰𝘁 𝗖𝗮𝗿𝗱𝘀 𝗯𝘆 𝗕𝗜𝗡
-
-✨ 𝗠𝗼𝗱𝗶𝗳𝗶𝗰𝗮𝘁𝗶𝗼𝗻
-────────────────────────
- •  /mix    ➟ 𝗦𝗵𝘂𝗳𝗳𝗹𝗲 𝗖𝗼𝗺𝗯𝗼 𝗟𝗶𝗻𝗲𝘀
-
-⚡ 𝗚𝗲𝗻𝗲𝗿𝗮𝘁𝗶𝗼𝗻
-────────────────────────
- •  /genf   ➟ 𝗚𝗲𝗻𝗲𝗿𝗮𝘁𝗲 𝗖𝗼𝗺𝗯𝗼 𝗙𝗶𝗹𝗲
- •  /gen    ➟ 𝗚𝗲𝗻𝗲𝗿𝗮𝘁𝗲 𝟭𝟬 𝗖𝗮𝗿𝗱𝘀
-────────────────────────
-    """, chat_id, message_id, reply_markup=create_back_button_keyboard())
-
-@bot.callback_query_handler(func=lambda call: call.data == "other")
-def other_callback(call):
-    chat_id = call.message.chat.id
-    message_id = call.message.message_id
-    bot.edit_message_caption("""
-─────── 💡 𝗢𝘁𝗵𝗲𝗿 𝗛𝗲𝗹𝗽𝗳𝘂𝗹 𝗧𝗼𝗼𝗹𝘀 ───────
-
-🌐 𝗚𝗲𝗻𝗲𝗿𝗮𝗹 𝗙𝗲𝗮𝘁𝘂𝗿𝗲𝘀
-────────────────────────
- •  /bin       ➟ 𝗕𝗜𝗡 𝗟𝗼𝗼𝗸𝘂𝗽
- •  /sk        ➟ 𝗖𝗵𝗲𝗰𝗸 𝗦𝗞 𝗞𝗲𝘆 𝗩𝗮𝗹𝗶𝗱𝗶𝘁𝘆
- •  /search   ➟ 𝗚𝗼𝗼𝗴𝗹𝗲 𝗦𝗰𝗿𝗮𝗽 𝗳𝗼𝗿 𝗚𝗮𝘁𝗲𝘀
-
-🛠️ 𝗣𝗿𝗲𝗺𝗶𝘂𝗺 𝗔𝗱𝘃𝗮𝗻𝗰𝗲𝗱 𝗦𝗲𝘁𝘁𝗶𝗻𝗴𝘀
-────────────────────────
- •  /proxy_check ➟ 𝗖𝗵𝗲𝗰𝗸 𝗣𝗿𝗼𝘅𝘆 𝗟𝗶𝘀𝘁 𝗛𝗲𝗮𝗹𝘁𝗵
- •  /setproxy    ➟ 𝗔𝗱𝗱 𝗬𝗼𝘂𝗿 𝗢𝘄𝗻 𝗣𝗿𝗼𝘅𝗶𝗲𝘀
- •  /clearproxy ➟ 𝗥𝗲𝗺𝗼𝘃𝗲 𝗬𝗼𝘂𝗿 𝗦𝗮𝘃𝗲𝗱 𝗣𝗿𝗼𝘅𝗶𝗲𝘀
-────────────────────────
-    """, chat_id, message_id, reply_markup=create_back_button_keyboard())
-
-@bot.callback_query_handler(func=lambda call: call.data == "back")
-def back_callback(call):
-    chat_id = call.message.chat.id
-    message_id = call.message.message_id
-    is_subscribed, status = check_subscription(chat_id)
-    welcome_message = f"""
-𝘄𝗲𝗹𝗰𝗼𝗺𝗲 𝘁𝗼 𝘁𝗵𝗲 𝗯𝗼𝘁 ❤️🇪🇬
-"""
-    bot.edit_message_caption(welcome_message, chat_id, message_id, reply_markup=create_main_menu_keyboard())
-
-#—————–————–———————––———#
-@bot.message_handler(commands=['admin'])
-def admin_command(message):
-    if message.from_user.id == admin_id:
-        keyboard = telebot.types.InlineKeyboardMarkup()
-        if bot_working:
-            status_text = "✅ 𝗕𝗼𝘁 𝗶𝘀 𝗰𝘂𝗿𝗿𝗲𝗻𝘁𝗹𝘆 𝗼𝗻𝗹𝗶𝗻𝗲."
-            button_text = "⚠️ 𝗘𝗻𝗮𝗯𝗹𝗲 𝗠𝗮𝗶𝗻𝘁𝗲𝗻𝗮𝗻𝗰𝗲 𝗠𝗼𝗱𝗲"
-        else:
-            status_text = "⚠️ 𝗕𝗼𝘁 𝗶𝘀 𝗰𝘂𝗿𝗿𝗲𝗻𝘁𝗹𝘆 𝗶𝗻 𝗠𝗮𝗶𝗻𝘁𝗲𝗻𝗮𝗻𝗰𝗲."
+   status_text = "⚠️ 𝗕𝗼𝘁 𝗶𝘀 𝗰𝘂𝗿𝗿𝗲𝗻𝘁𝗹𝘆 𝗶𝗻 𝗠𝗮𝗶𝗻𝘁𝗲𝗻𝗮𝗻𝗰𝗲."
             button_text = "✅ 𝗗𝗶𝘀𝗮𝗯𝗹𝗲 𝗠𝗮𝗶𝗻𝘁𝗲𝗻𝗮𝗻𝗰𝗲 𝗠𝗼𝗱𝗲"
         
         keyboard.add(telebot.types.InlineKeyboardButton(text=button_text, callback_data='toggle_status'))
