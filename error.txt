@@ -1,0 +1,276 @@
+❗️ 𝗯𝗼𝘁 𝗰𝗿𝗮𝘀𝗵𝗲𝗱 𝘄𝗶𝘁𝗵 𝗲𝗿𝗿𝗼𝗿: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+
+🕒 𝘁𝗶𝗺𝗲: 2025-08-25 20:44:36.668957
+==================================================
+❗️ 𝗯𝗼𝘁 𝗰𝗿𝗮𝘀𝗵𝗲𝗱 𝘄𝗶𝘁𝗵 𝗲𝗿𝗿𝗼𝗿: TeleBot.send_video() got an unexpected keyword argument 'welcome_message'
+
+🕒 𝘁𝗶𝗺𝗲: 2025-08-26 01:58:54.979201
+==================================================
+❗️ 𝗯𝗼𝘁 𝗰𝗿𝗮𝘀𝗵𝗲𝗱 𝘄𝗶𝘁𝗵 𝗲𝗿𝗿𝗼𝗿: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+
+🕒 𝘁𝗶𝗺𝗲: 2025-08-26 03:26:27.542354
+==================================================
+❗️ 𝗯𝗼𝘁 𝗰𝗿𝗮𝘀𝗵𝗲𝗱 𝘄𝗶𝘁𝗵 𝗲𝗿𝗿𝗼𝗿: list index out of range
+
+🕒 𝘁𝗶𝗺𝗲: 2025-08-26 03:32:54.308764
+==================================================
+❗️ 𝗯𝗼𝘁 𝗰𝗿𝗮𝘀𝗵𝗲𝗱 𝘄𝗶𝘁𝗵 𝗲𝗿𝗿𝗼𝗿: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+
+🕒 𝘁𝗶𝗺𝗲: 2025-08-26 03:47:41.194616
+==================================================
+❗️ 𝗯𝗼𝘁 𝗰𝗿𝗮𝘀𝗵𝗲𝗱 𝘄𝗶𝘁𝗵 𝗲𝗿𝗿𝗼𝗿: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+
+🕒 𝘁𝗶𝗺𝗲: 2025-08-27 04:06:43.939005
+==================================================
+❗️ 𝗯𝗼𝘁 𝗰𝗿𝗮𝘀𝗵𝗲𝗱 𝘄𝗶𝘁𝗵 𝗲𝗿𝗿𝗼𝗿: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+
+🕒 𝘁𝗶𝗺𝗲: 2025-08-28 19:06:02.403101
+==================================================
+❗️ 𝗯𝗼𝘁 𝗰𝗿𝗮𝘀𝗵𝗲𝗱 𝘄𝗶𝘁𝗵 𝗲𝗿𝗿𝗼𝗿: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+
+🕒 𝘁𝗶𝗺𝗲: 2025-08-28 20:00:52.773616
+==================================================
+❗️ 𝗯𝗼𝘁 𝗰𝗿𝗮𝘀𝗵𝗲𝗱 𝘄𝗶𝘁𝗵 𝗲𝗿𝗿𝗼𝗿: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+
+🕒 𝘁𝗶𝗺𝗲: 2025-08-28 20:08:41.922444
+==================================================
+❗️ 𝗯𝗼𝘁 𝗰𝗿𝗮𝘀𝗵𝗲𝗱 𝘄𝗶𝘁𝗵 𝗲𝗿𝗿𝗼𝗿: HTTPSConnectionPool(host='api.telegram.org', port=443): Read timed out.
+
+🕒 𝘁𝗶𝗺𝗲: 2025-09-01 20:09:44.369328
+==================================================
+❗️ 𝗯𝗼𝘁 𝗰𝗿𝗮𝘀𝗵𝗲𝗱 𝘄𝗶𝘁𝗵 𝗲𝗿𝗿𝗼𝗿: HTTPSConnectionPool(host='api.telegram.org', port=443): Read timed out.
+
+🕒 𝘁𝗶𝗺𝗲: 2025-09-01 20:10:34.290675
+==================================================
+❗️ 𝗯𝗼𝘁 𝗰𝗿𝗮𝘀𝗵𝗲𝗱 𝘄𝗶𝘁𝗵 𝗲𝗿𝗿𝗼𝗿: HTTPSConnectionPool(host='api.telegram.org', port=443): Read timed out.
+
+🕒 𝘁𝗶𝗺𝗲: 2025-09-01 20:11:21.303461
+==================================================
+❗️ 𝗯𝗼𝘁 𝗰𝗿𝗮𝘀𝗵𝗲𝗱 𝘄𝗶𝘁𝗵 𝗲𝗿𝗿𝗼𝗿: HTTPSConnectionPool(host='api.telegram.org', port=443): Read timed out. (read timeout=25)
+
+🕒 𝘁𝗶𝗺𝗲: 2025-09-01 20:11:54.583796
+==================================================
+❗️ 𝗯𝗼𝘁 𝗰𝗿𝗮𝘀𝗵𝗲𝗱 𝘄𝗶𝘁𝗵 𝗲𝗿𝗿𝗼𝗿: HTTPSConnectionPool(host='api.telegram.org', port=443): Read timed out.
+
+🕒 𝘁𝗶𝗺𝗲: 2025-09-01 20:12:38.839937
+==================================================
+❗️ 𝗯𝗼𝘁 𝗰𝗿𝗮𝘀𝗵𝗲𝗱 𝘄𝗶𝘁𝗵 𝗲𝗿𝗿𝗼𝗿: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+
+🕒 𝘁𝗶𝗺𝗲: 2025-09-06 23:44:41.782021
+==================================================
+❗️ 𝗯𝗼𝘁 𝗰𝗿𝗮𝘀𝗵𝗲𝗱 𝘄𝗶𝘁𝗵 𝗲𝗿𝗿𝗼𝗿: name 'Faker' is not defined
+
+🕒 𝘁𝗶𝗺𝗲: 2025-09-07 01:15:50.305828
+==================================================
+❗️ 𝗯𝗼𝘁 𝗰𝗿𝗮𝘀𝗵𝗲𝗱 𝘄𝗶𝘁𝗵 𝗲𝗿𝗿𝗼𝗿: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+
+🕒 𝘁𝗶𝗺𝗲: 2025-09-10 03:36:39.802670
+==================================================
+❗️ 𝗯𝗼𝘁 𝗰𝗿𝗮𝘀𝗵𝗲𝗱 𝘄𝗶𝘁𝗵 𝗲𝗿𝗿𝗼𝗿: Could not find the input entity for PeerUser(user_id=1000) (PeerUser). Please read https://docs.telethon.dev/en/stable/concepts/entities.html to find out more details.
+
+🕒 𝘁𝗶𝗺𝗲: 2025-09-10 03:39:45.924359
+==================================================
+❗️ 𝗯𝗼𝘁 𝗰𝗿𝗮𝘀𝗵𝗲𝗱 𝘄𝗶𝘁𝗵 𝗲𝗿𝗿𝗼𝗿: name 'TOKEN' is not defined
+
+🕒 𝘁𝗶𝗺𝗲: 2025-09-21 02:49:53.164296
+==================================================
+❗️ 𝗯𝗼𝘁 𝗰𝗿𝗮𝘀𝗵𝗲𝗱 𝘄𝗶𝘁𝗵 𝗲𝗿𝗿𝗼𝗿: name 'BOT_TOKEN' is not defined
+
+🕒 𝘁𝗶𝗺𝗲: 2025-09-21 03:06:37.842898
+==================================================
+❗️ 𝗯𝗼𝘁 𝗰𝗿𝗮𝘀𝗵𝗲𝗱 𝘄𝗶𝘁𝗵 𝗲𝗿𝗿𝗼𝗿: name 'BOT_TOKEN' is not defined
+
+🕒 𝘁𝗶𝗺𝗲: 2025-09-21 03:07:30.669908
+==================================================
+❗️ 𝗯𝗼𝘁 𝗰𝗿𝗮𝘀𝗵𝗲𝗱 𝘄𝗶𝘁𝗵 𝗲𝗿𝗿𝗼𝗿: name 'save_maintenance' is not defined
+
+🕒 𝘁𝗶𝗺𝗲: 2025-09-21 17:50:45.233274
+==================================================
+❗️ 𝗯𝗼𝘁 𝗰𝗿𝗮𝘀𝗵𝗲𝗱 𝘄𝗶𝘁𝗵 𝗲𝗿𝗿𝗼𝗿: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+
+🕒 𝘁𝗶𝗺𝗲: 2025-09-21 21:19:27.349692
+==================================================
+❗️ 𝗕𝗼𝘁 𝗰𝗿𝗮𝘀𝗵𝗲𝗱 𝘄𝗶𝘁𝗵 𝗲𝗿𝗿𝗼𝗿: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+
+🕒 𝗧𝗶𝗺𝗲: 2025-09-21 21:52:16.631947
+==================================================
+❗️ 𝗕𝗼𝘁 𝗰𝗿𝗮𝘀𝗵𝗲𝗱 𝘄𝗶𝘁𝗵 𝗲𝗿𝗿𝗼𝗿: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+
+🕒 𝗧𝗶𝗺𝗲: 2025-09-22 00:39:19.270249
+==================================================
+❗️ 𝗕𝗼𝘁 𝗰𝗿𝗮𝘀𝗵𝗲𝗱 𝘄𝗶𝘁𝗵 𝗲𝗿𝗿𝗼𝗿: name 'active_tasks' is not defined
+
+🕒 𝗧𝗶𝗺𝗲: 2025-09-22 20:10:43.217657
+==================================================
+❗️ 𝗕𝗼𝘁 𝗰𝗿𝗮𝘀𝗵𝗲𝗱 𝘄𝗶𝘁𝗵 𝗲𝗿𝗿𝗼𝗿: descriptor 'date' for 'datetime.datetime' objects doesn't apply to a 'int' object
+
+🕒 𝗧𝗶𝗺𝗲: 2025-09-23 00:33:08.150987
+==================================================
+❗️ 𝗕𝗼𝘁 𝗰𝗿𝗮𝘀𝗵𝗲𝗱 𝘄𝗶𝘁𝗵 𝗲𝗿𝗿𝗼𝗿: 'payf'
+
+🕒 𝗧𝗶𝗺𝗲: 2025-09-23 01:46:32.937166
+==================================================
+❗️ 𝗕𝗼𝘁 𝗰𝗿𝗮𝘀𝗵𝗲𝗱 𝘄𝗶𝘁𝗵 𝗲𝗿𝗿𝗼𝗿: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+
+🕒 𝗧𝗶𝗺𝗲: 2025-09-23 03:55:11.740121
+==================================================
+❗️ 𝗕𝗼𝘁 𝗰𝗿𝗮𝘀𝗵𝗲𝗱 𝘄𝗶𝘁𝗵 𝗲𝗿𝗿𝗼𝗿: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+
+🕒 𝗧𝗶𝗺𝗲: 2025-09-23 03:55:30.436501
+==================================================
+❗️ 𝗕𝗼𝘁 𝗰𝗿𝗮𝘀𝗵𝗲𝗱 𝘄𝗶𝘁𝗵 𝗲𝗿𝗿𝗼𝗿: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+
+🕒 𝗧𝗶𝗺𝗲: 2025-09-23 04:24:19.782665
+==================================================
+❗️ 𝗕𝗼𝘁 𝗰𝗿𝗮𝘀𝗵𝗲𝗱 𝘄𝗶𝘁𝗵 𝗲𝗿𝗿𝗼𝗿: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+
+🕒 𝗧𝗶𝗺𝗲: 2025-09-23 04:25:05.286777
+==================================================
+❗️ 𝗕𝗼𝘁 𝗰𝗿𝗮𝘀𝗵𝗲𝗱 𝘄𝗶𝘁𝗵 𝗲𝗿𝗿𝗼𝗿: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+
+🕒 𝗧𝗶𝗺𝗲: 2025-09-27 08:33:59.267324
+==================================================
+❗️ 𝗕𝗼𝘁 𝗰𝗿𝗮𝘀𝗵𝗲𝗱 𝘄𝗶𝘁𝗵 𝗲𝗿𝗿𝗼𝗿: Could not find the input entity for PeerUser(user_id=400271) (PeerUser). Please read https://docs.telethon.dev/en/stable/concepts/entities.html to find out more details.
+
+🕒 𝗧𝗶𝗺𝗲: 2025-09-28 00:31:59.716610
+==================================================
+❗️ 𝗕𝗼𝘁 𝗰𝗿𝗮𝘀𝗵𝗲𝗱 𝘄𝗶𝘁𝗵 𝗲𝗿𝗿𝗼𝗿: HTTPSConnectionPool(host='api.telegram.org', port=443): Read timed out. (read timeout=25)
+
+🕒 𝗧𝗶𝗺𝗲: 2025-09-28 00:36:52.287710
+==================================================
+❗️ 𝗕𝗼𝘁 𝗰𝗿𝗮𝘀𝗵𝗲𝗱 𝘄𝗶𝘁𝗵 𝗲𝗿𝗿𝗼𝗿: HTTPSConnectionPool(host='api.telegram.org', port=443): Read timed out. (read timeout=25)
+
+🕒 𝗧𝗶𝗺𝗲: 2025-09-28 00:37:35.691364
+==================================================
+❗️ 𝗕𝗼𝘁 𝗰𝗿𝗮𝘀𝗵𝗲𝗱 𝘄𝗶𝘁𝗵 𝗲𝗿𝗿𝗼𝗿: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+
+🕒 𝗧𝗶𝗺𝗲: 2025-09-29 03:03:43.808301
+==================================================
+❗️ 𝗕𝗼𝘁 𝗰𝗿𝗮𝘀𝗵𝗲𝗱 𝘄𝗶𝘁𝗵 𝗲𝗿𝗿𝗼𝗿: 'real_ip'
+
+🕒 𝗧𝗶𝗺𝗲: 2025-09-29 15:59:24.749898
+==================================================
+❗️ 𝗕𝗼𝘁 𝗰𝗿𝗮𝘀𝗵𝗲𝗱 𝘄𝗶𝘁𝗵 𝗲𝗿𝗿𝗼𝗿: HTTPSConnectionPool(host='api.telegram.org', port=443): Read timed out.
+
+🕒 𝗧𝗶𝗺𝗲: 2025-10-02 02:19:43.466695
+==================================================
+❗️ 𝗕𝗼𝘁 𝗰𝗿𝗮𝘀𝗵𝗲𝗱 𝘄𝗶𝘁𝗵 𝗲𝗿𝗿𝗼𝗿: HTTPSConnectionPool(host='api.telegram.org', port=443): Read timed out. (read timeout=20)
+
+🕒 𝗧𝗶𝗺𝗲: 2025-10-02 02:20:27.066176
+==================================================
+❗️ 𝗕𝗼𝘁 𝗰𝗿𝗮𝘀𝗵𝗲𝗱 𝘄𝗶𝘁𝗵 𝗲𝗿𝗿𝗼𝗿: HTTPSConnectionPool(host='api.telegram.org', port=443): Read timed out.
+
+🕒 𝗧𝗶𝗺𝗲: 2025-10-02 02:21:29.484649
+==================================================
+❗️ 𝗕𝗼𝘁 𝗰𝗿𝗮𝘀𝗵𝗲𝗱 𝘄𝗶𝘁𝗵 𝗲𝗿𝗿𝗼𝗿: HTTPSConnectionPool(host='api.telegram.org', port=443): Read timed out. (read timeout=25)
+
+🕒 𝗧𝗶𝗺𝗲: 2025-10-02 02:22:41.459711
+==================================================
+❗️ 𝗕𝗼𝘁 𝗰𝗿𝗮𝘀𝗵𝗲𝗱 𝘄𝗶𝘁𝗵 𝗲𝗿𝗿𝗼𝗿: HTTPSConnectionPool(host='api.telegram.org', port=443): Read timed out. (read timeout=20)
+
+🕒 𝗧𝗶𝗺𝗲: 2025-10-02 02:23:25.803358
+==================================================
+❗️ 𝗕𝗼𝘁 𝗰𝗿𝗮𝘀𝗵𝗲𝗱 𝘄𝗶𝘁𝗵 𝗲𝗿𝗿𝗼𝗿: HTTPSConnectionPool(host='api.telegram.org', port=443): Read timed out. (read timeout=25)
+
+🕒 𝗧𝗶𝗺𝗲: 2025-10-02 02:24:14.827301
+==================================================
+❗️ 𝗕𝗼𝘁 𝗰𝗿𝗮𝘀𝗵𝗲𝗱 𝘄𝗶𝘁𝗵 𝗲𝗿𝗿𝗼𝗿: HTTPSConnectionPool(host='api.telegram.org', port=443): Read timed out. (read timeout=25)
+
+🕒 𝗧𝗶𝗺𝗲: 2025-10-02 02:25:09.035688
+==================================================
+❗️ 𝗕𝗼𝘁 𝗰𝗿𝗮𝘀𝗵𝗲𝗱 𝘄𝗶𝘁𝗵 𝗲𝗿𝗿𝗼𝗿: HTTPSConnectionPool(host='api.telegram.org', port=443): Read timed out. (read timeout=25)
+
+🕒 𝗧𝗶𝗺𝗲: 2025-10-02 02:28:15.814547
+==================================================
+❗️ 𝗕𝗼𝘁 𝗰𝗿𝗮𝘀𝗵𝗲𝗱 𝘄𝗶𝘁𝗵 𝗲𝗿𝗿𝗼𝗿: HTTPSConnectionPool(host='api.telegram.org', port=443): Read timed out. (read timeout=20)
+
+🕒 𝗧𝗶𝗺𝗲: 2025-10-02 02:28:48.917525
+==================================================
+❗️ 𝗕𝗼𝘁 𝗰𝗿𝗮𝘀𝗵𝗲𝗱 𝘄𝗶𝘁𝗵 𝗲𝗿𝗿𝗼𝗿: HTTPSConnectionPool(host='api.telegram.org', port=443): Read timed out. (read timeout=20)
+
+🕒 𝗧𝗶𝗺𝗲: 2025-10-02 02:29:46.047766
+==================================================
+❗️ 𝗕𝗼𝘁 𝗰𝗿𝗮𝘀𝗵𝗲𝗱 𝘄𝗶𝘁𝗵 𝗲𝗿𝗿𝗼𝗿: HTTPSConnectionPool(host='api.telegram.org', port=443): Read timed out. (read timeout=25)
+
+🕒 𝗧𝗶𝗺𝗲: 2025-10-06 03:45:18.392066
+==================================================
+❗️ 𝗕𝗼𝘁 𝗰𝗿𝗮𝘀𝗵𝗲𝗱 𝘄𝗶𝘁𝗵 𝗲𝗿𝗿𝗼𝗿: HTTPSConnectionPool(host='api.telegram.org', port=443): Max retries exceeded with url: /bot7040898503:AAGHQ-8s55l3SELZexgVYk2p94utaXdS4ng/getUpdates?offset=459225677&timeout=20 (Caused by SSLError(SSLEOFError(8, 'EOF occurred in violation of protocol (_ssl.c:992)')))
+
+🕒 𝗧𝗶𝗺𝗲: 2025-10-06 03:45:36.877177
+==================================================
+❗️ 𝗕𝗼𝘁 𝗰𝗿𝗮𝘀𝗵𝗲𝗱 𝘄𝗶𝘁𝗵 𝗲𝗿𝗿𝗼𝗿: HTTPSConnectionPool(host='api.telegram.org', port=443): Max retries exceeded with url: /bot7040898503:AAGHQ-8s55l3SELZexgVYk2p94utaXdS4ng/answerCallbackQuery?callback_query_id=3614517212956635576&text=%E2%9D%8C+No+active+task+to+stop.&show_alert=True (Caused by ConnectTimeoutError(<urllib3.connection.HTTPSConnection object at 0x000002549EB76950>, 'Connection to api.telegram.org timed out. (connect timeout=15)'))
+
+🕒 𝗧𝗶𝗺𝗲: 2025-10-06 03:46:02.967510
+==================================================
+❗️ 𝗕𝗼𝘁 𝗰𝗿𝗮𝘀𝗵𝗲𝗱 𝘄𝗶𝘁𝗵 𝗲𝗿𝗿𝗼𝗿: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+
+🕒 𝗧𝗶𝗺𝗲: 2025-10-06 03:58:26.862487
+==================================================
+❗️ 𝗕𝗼𝘁 𝗰𝗿𝗮𝘀𝗵𝗲𝗱 𝘄𝗶𝘁𝗵 𝗲𝗿𝗿𝗼𝗿: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+
+🕒 𝗧𝗶𝗺𝗲: 2025-10-09 15:58:29.351300
+==================================================
+❗️ 𝗕𝗼𝘁 𝗰𝗿𝗮𝘀𝗵𝗲𝗱 𝘄𝗶𝘁𝗵 𝗲𝗿𝗿𝗼𝗿: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+
+🕒 𝗧𝗶𝗺𝗲: 2025-10-14 01:21:20.681398
+==================================================
+❗️ 𝗕𝗼𝘁 𝗰𝗿𝗮𝘀𝗵𝗲𝗱 𝘄𝗶𝘁𝗵 𝗲𝗿𝗿𝗼𝗿: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+
+🕒 𝗧𝗶𝗺𝗲: 2025-10-14 01:21:40.080366
+==================================================
+❗️ 𝗕𝗼𝘁 𝗰𝗿𝗮𝘀𝗵𝗲𝗱 𝘄𝗶𝘁𝗵 𝗲𝗿𝗿𝗼𝗿: name 'format_file_stats' is not defined
+
+🕒 𝗧𝗶𝗺𝗲: 2025-10-14 03:00:49.683654
+==================================================
+❗️ 𝗕𝗼𝘁 𝗰𝗿𝗮𝘀𝗵𝗲𝗱 𝘄𝗶𝘁𝗵 𝗲𝗿𝗿𝗼𝗿: name 'format_file_stats' is not defined
+
+🕒 𝗧𝗶𝗺𝗲: 2025-10-14 06:21:39.863152
+==================================================
+❗️ 𝗕𝗼𝘁 𝗰𝗿𝗮𝘀𝗵𝗲𝗱 𝘄𝗶𝘁𝗵 𝗲𝗿𝗿𝗼𝗿: HTTPSConnectionPool(host='api.telegram.org', port=443): Read timed out. (read timeout=25)
+
+🕒 𝗧𝗶𝗺𝗲: 2025-10-14 07:41:47.971385
+==================================================
+❗️ 𝗕𝗼𝘁 𝗰𝗿𝗮𝘀𝗵𝗲𝗱 𝘄𝗶𝘁𝗵 𝗲𝗿𝗿𝗼𝗿: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+
+🕒 𝗧𝗶𝗺𝗲: 2025-10-14 23:25:54.367332
+==================================================
+❗️ 𝗕𝗼𝘁 𝗰𝗿𝗮𝘀𝗵𝗲𝗱 𝘄𝗶𝘁𝗵 𝗲𝗿𝗿𝗼𝗿: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+
+🕒 𝗧𝗶𝗺𝗲: 2025-10-14 23:26:28.450192
+==================================================
+❗️ 𝗕𝗼𝘁 𝗰𝗿𝗮𝘀𝗵𝗲𝗱 𝘄𝗶𝘁𝗵 𝗲𝗿𝗿𝗼𝗿: ('Connection aborted.', ConnectionAbortedError(103, 'Software caused connection abort'))
+
+🕒 𝗧𝗶𝗺𝗲: 2025-10-17 14:17:15.439439
+==================================================
+❗️ 𝗕𝗼𝘁 𝗰𝗿𝗮𝘀𝗵𝗲𝗱 𝘄𝗶𝘁𝗵 𝗲𝗿𝗿𝗼𝗿: HTTPSConnectionPool(host='api.telegram.org', port=443): Max retries exceeded with url: /bot7040898503:AAGHQ-8s55l3SELZexgVYk2p94utaXdS4ng/getUpdates?offset=459231198&timeout=20 (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x79c68716d0>: Failed to resolve 'api.telegram.org' ([Errno 7] No address associated with hostname)"))
+
+🕒 𝗧𝗶𝗺𝗲: 2025-10-17 14:17:21.706632
+==================================================
+❗️ 𝗕𝗼𝘁 𝗰𝗿𝗮𝘀𝗵𝗲𝗱 𝘄𝗶𝘁𝗵 𝗲𝗿𝗿𝗼𝗿: HTTPSConnectionPool(host='api.telegram.org', port=443): Read timed out. (read timeout=25)
+
+🕒 𝗧𝗶𝗺𝗲: 2025-10-22 17:17:50.953289
+==================================================
+❗️ 𝗕𝗼𝘁 𝗰𝗿𝗮𝘀𝗵𝗲𝗱 𝘄𝗶𝘁𝗵 𝗲𝗿𝗿𝗼𝗿: HTTPSConnectionPool(host='api.telegram.org', port=443): Max retries exceeded with url: /bot7040898503:AAGHQ-8s55l3SELZexgVYk2p94utaXdS4ng/getUpdates?offset=459244575&timeout=20 (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x766438a210>: Failed to resolve 'api.telegram.org' ([Errno 7] No address associated with hostname)"))
+
+🕒 𝗧𝗶𝗺𝗲: 2025-10-22 17:19:24.887130
+==================================================
+❗️ 𝗕𝗼𝘁 𝗰𝗿𝗮𝘀𝗵𝗲𝗱 𝘄𝗶𝘁𝗵 𝗲𝗿𝗿𝗼𝗿: HTTPSConnectionPool(host='api.telegram.org', port=443): Read timed out. (read timeout=25)
+
+🕒 𝗧𝗶𝗺𝗲: 2025-10-26 14:11:03.887669
+==================================================
+❗️ 𝗕𝗼𝘁 𝗰𝗿𝗮𝘀𝗵𝗲𝗱 𝘄𝗶𝘁𝗵 𝗲𝗿𝗿𝗼𝗿: HTTPSConnectionPool(host='api.telegram.org', port=443): Max retries exceeded with url: /bot7040898503:AAGHQ-8s55l3SELZexgVYk2p94utaXdS4ng/getUpdates?offset=459256464&timeout=20 (Caused by SSLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1028)')))
+
+🕒 𝗧𝗶𝗺𝗲: 2025-10-26 14:12:47.802066
+==================================================
+❗️ 𝗕𝗼𝘁 𝗰𝗿𝗮𝘀𝗵𝗲𝗱 𝘄𝗶𝘁𝗵 𝗲𝗿𝗿𝗼𝗿: HTTPSConnectionPool(host='api.telegram.org', port=443): Read timed out. (read timeout=25)
+
+🕒 𝗧𝗶𝗺𝗲: 2025-10-29 19:58:35.212892
+==================================================
+❗️ 𝗕𝗼𝘁 𝗰𝗿𝗮𝘀𝗵𝗲𝗱 𝘄𝗶𝘁𝗵 𝗲𝗿𝗿𝗼𝗿: ('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))
+
+🕒 𝗧𝗶𝗺𝗲: 2025-10-29 20:00:10.926613
+==================================================
+❗️ 𝗕𝗼𝘁 𝗰𝗿𝗮𝘀𝗵𝗲𝗱 𝘄𝗶𝘁𝗵 𝗲𝗿𝗿𝗼𝗿: HTTPSConnectionPool(host='api.telegram.org', port=443): Read timed out. (read timeout=25)
+
+🕒 𝗧𝗶𝗺𝗲: 2025-10-29 20:00:41.892339
+==================================================
