@@ -25,7 +25,7 @@ import telebot, time, os, asyncio, datetime, re, json, threading, functools
 from telebot import types
 #———–———–———–———–———–———#
 # Make sure you have these local modules in the same directory
-from braintree import main as api
+from braintree import braintree
 from bin_info_v1 import bin_info
 from paypal import process_card_p
 from stripe import process_card
