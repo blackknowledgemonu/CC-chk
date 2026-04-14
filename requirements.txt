@@ -1,0 +1,76 @@
+
+from braintree_Api import main as api
+from bin_info_v1 import bin_info
+from paypal import process_card_p
+from stripe import process_card
+from braintree import process_card_b
+from genfun import gen_card
+from paypal5 import process_card_paypal5
+from shopify_charge import process_card_s
+from braintree_dual_checker import ali1
+from search import perform_search
+from len_fun import count_lines
+from mix_fun import mix_lines
+from filter_fun import filter
+from sk_check import check_key
+from binlookup import get_bin_info
+from check_bins_fun import extract_bins
+from scrap_fun import get_last_messages,save_to_file
+from faker import Faker
+from telebot.types import LabeledPrice
+import random, string
+from datetime import datetime, timedelta
+import shopify_charge
+pip install pytelegrambotapi
+pip install telebot
+pip install requests
+pip install aiohttp
+pip install user_agent
+pip install six
+pip install fake-useragent
+pip install pytz
+pip install python-dateutil
+pip install bs4
+pip install lxml
+pip install asyncio
+pip install faker
+pip install google
+pip install pycountry
+pip install colorama
+pip install aiofiles
+pip install cloudscraper
+
+pip uninstall six -y
+
+pip install six==1.16.0
+
+python -m pip show six
+
+pip install --upgrade pip setuptools wheel
+pip install --force-reinstall six
+
+pip install telethon
+
+pip install six==1.16.0 requests beautifulsoup4 user_agent requests_toolbelt
+
+python -m pip show telethon
+
+pip install --upgrade pip setuptools wheel
+
+pip install telethon==1.33.1
+
+pip install /storage/emulated/0/Download/Telethon-1.33.1-py3-none-any.whl
+
+pip install /storage/emulated/0/Download/Telethon-1.33.1-py3-none-any.whl
+
+telethon-1.42.0-py3-none-any.whl
+
+pip install /storage/emulated/0/Download/telethon-1.42.0-py3-none-any.whl
+
+pip show telethon
+
+python -m pip install --force-reinstall --no-cache-dir telethon==1.33.1
+
+pip install --upgrade pip setuptools wheel
+pip install --force-reinstall --no-cache-dir telethon==1.33.1
+pip install requests beautifulsoup4 user_agent requests_toolbelt six==1.16.0 fake-useragent pytz python-dateutil colorama
