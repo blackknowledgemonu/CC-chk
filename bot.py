@@ -1,39 +1,81 @@
 import telebot, time, os, asyncio, datetime, re, json, threading, functools
 from telebot import types
+from telebot.types import LabeledPrice
 import random, string
 from datetime import datetime, timedelta
 
-# —————————— FIXED IMPORTS & PLACEHOLDERS —————————— #
-# Render par "ModuleNotFoundError" se bachne ke liye placeholders
-import braintree 
+# —————————— IMPORT LOCAL MODULES —————————— #
+# Maine try-except lagaya hai taaki agar koi file miss ho jaye toh bot crash na ho
+try:
+    from braintree_dual_checker import ali1
+    from check_bins_fun import extract_bins
+    # Agar aapke paas baaki files (paypal, shopify) bhi hain toh unhe yahan add karein
+except ImportError as e:
+    print(f"⚠️ Warning: Some local modules are missing: {e}")
 
-def placeholder_func(*args, **kwargs):
-    return "⚠️ This feature requires missing local files (like bin_info or gateways)."
+# —————————— BOT CONFIGURATION —————————— #
+TOKEN = "8662492230:AAHerwQ0PlavJ3rwn7zxsE6g-MnmJbJqXrg"
+admin_id = 1677950104 # Aapki sahi Chat ID
 
-# Missing modules ko handle karne ke liye
-bin_info = placeholder_func
-process_card_p = placeholder_func
-process_card = placeholder_func
-process_card_b = placeholder_func
-gen_card = placeholder_func
-ali1 = placeholder_func
-perform_search = placeholder_func
-count_lines = lambda x: 0
-mix_lines = placeholder_func
-filter = placeholder_func
-check_key = placeholder_func
-get_bin_info = placeholder_func
-extract_bins = placeholder_func
-get_last_messages = placeholder_func
-save_to_file = placeholder_func
-# —————————————————————————————————————————————————— #
+bot = telebot.TeleBot(TOKEN, parse_mode='html')
 
-bot = telebot.TeleBot("8662492230:AAHerwQ0PlavJ3rwn7zxsE6g-MnmJbJqXrg", parse_mode='html')
-admin_id = 1677950104
+# —————————— INITIALIZE DATA —————————— #
+def initialize_json(filename, default_data):
+    if not os.path.exists(filename):
+        with open(filename, 'w') as f:
+            json.dump(default_data, f, indent=4)
 
-# --- Bot Status ---
-bot_working = True
-gate_status = {k: True for k in ['chk', 'str', 'pay', 'sh', 'filestr', 'file', 'chk3']}
+# Zaroori files setup
+initialize_json('data.json', {})
+initialize_json('free.json', [])
+initialize_json('banned_users.json', [])
+initialize_json('credits.json', {})
+initialize_json('user_proxies.json', {})
+
+# —————————— KEYBOARDS —————————— #
+def create_main_menu():
+    markup = types.InlineKeyboardMarkup(row_width=2)
+    markup.add(
+        types.InlineKeyboardButton("👑 OWNER", callback_data="admin"),
+        types.InlineKeyboardButton("💳 CC CHECK", callback_data="cc"),
+        types.InlineKeyboardButton("🔍 SCRAP", callback_data="scr"),
+        types.InlineKeyboardButton("⚙️ COMBO", callback_data="combo")
+    )
+    return markup
+
+# —————————— HANDLERS —————————— #
+@bot.message_handler(commands=['start'])
+def start_handler(message):
+    bot.send_video(
+        message.chat.id,
+        video="https://t.me/cccjwowowow/85",
+        caption="<b>𝘄𝗲𝗹𝗰𝗼𝗺𝗲 𝘁𝗼 𝘁𝗵𝗲 𝗯𝗼𝘁 ❤️🇪🇬</b>\n\nStatus: 🟢 <code>Online</code>\nAdmin: <a href='tg://user?id=1677950104'>Boss</a>",
+        reply_markup=create_main_menu()
+    )
+
+@bot.callback_query_handler(func=lambda call: True)
+def callback_handler(call):
+    if call.data == "cc":
+        bot.edit_message_caption("─────── 💳 <b>Card Check Menu</b> ───────\n\n/chk3 - Braintree Dual Auth\n/str - Stripe\n/sh - Shopify", 
+                                 call.message.chat.id, call.message.message_id, 
+                                 reply_markup=create_main_menu())
+    elif call.data == "admin":
+        if call.from_user.id == admin_id:
+            bot.answer_callback_query(call.id, "Welcome Back, Boss!")
+            bot.edit_message_caption("👑 <b>Admin Control Panel</b>\n\n/admin - Bot Status\n/gates - Control Gates\n/grant - Add Subscription", 
+                                     call.message.chat.id, call.message.message_id, 
+                                     reply_markup=create_main_menu())
+        else:
+            bot.answer_callback_query(call.id, "❌ Only the owner can access this!", show_alert=True)
+
+# —————————— START THE BOT —————————— #
+if __name__ == '__main__':
+    print("▶️ Bot is running on Render...")
+    try:
+        bot.send_message(admin_id, "✅ <b>Bot Started Successfully!</b>\nAll features are linked.")
+    except:
+        pass
+    bot.infinity_polling()
 
 # --- Initialize JSON Files ---
 def initialize_json(filename, default_data):
