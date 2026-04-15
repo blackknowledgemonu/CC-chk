@@ -1,83 +1,77 @@
-import telebot, time, os, re, json, threading
-from telebot import types
+import telebot
+import logging
+from bin_info_v1 import bin_info  # Aapki file ka sahi function name
+from sk_check import check_key
+from braintree_Api import main as braintree_chk
 
-# —————————— INTEGRATING YOUR 300+ FILES —————————— #
-try:
-    from braintree_Api import main as api
-    from bin_info_v1 import bin_info
-    from paypal import process_card_p
-    from stripe import process_card as stripe_chk
-    from braintree import process_card_b
-    from braintree_dual_checker import ali1
-    from binlookup import get_bin_info
-    from check_bins_fun import extract_bins
-    # Note: Agar koi file missing hui to niche error handle ho jayega
-except ImportError as e:
-    print(f"⚠️ Warning: Kuch logic files missing hain: {e}")
+# --- CONFIGURATION ---
+TOKEN = "8662492230:AAHerwQ0PlavJ3rwn7zxsE6g-MnmJbJqXrg" # Apna token yahan replace karein
+admin_id = 1630132104 
 
-# —————————— BOT SETTINGS —————————— #
-TOKEN = "8662492230:AAHerwQ0PlavJ3rwn7zxsE6g-MnmJbJqXrg"
-admin_id = 1677950104
-bot = telebot.TeleBot(TOKEN, parse_mode='html')
+bot = telebot.TeleBot(TOKEN, parse_mode="HTML")
+logging.basicConfig(level=logging.INFO)
 
-def get_cards(text):
-    return re.findall(r'\d{15,16}[\s|:|/|-]\d{1,2}[\s|:|/|-]\d{2,4}[\s|:|/|-]\d{3,4}', text)
-
-# —————————— COMMAND HANDLERS —————————— #
-
+# --- START COMMAND ---
 @bot.message_handler(commands=['start'])
 def start(message):
-    bot.reply_to(message, "<b>𝗕𝗼𝘁 𝗶𝘀 𝗢𝗻𝗹𝗶𝗻𝗲 ✅</b>\nSaare gateways (Braintree/Stripe) connect ho gaye hain.")
+    welcome = (
+        "<b>🔥 Black Knowledge Multi-Bot V1</b>\n\n"
+        "Status: <code>Online ✅</code>\n"
+        "Owner: @BLACK_KNOWLEDGE_190\n\n"
+        "<b>Commands:</b>\n"
+        "💳 /chk <code>card|mm|yy|cvv</code>\n"
+        "🔍 /bin <code>444444</code>\n"
+        "🔑 /sk <code>sk_live_xxx</code>"
+    )
+    bot.reply_to(message, welcome)
 
-# 1. Braintree Gate (/chk)
-@bot.message_handler(commands=['chk'])
-def chk_handler(message):
-    cards = get_cards(message.text)
-    if not cards: return bot.reply_to(message, "❌ Use: /chk cc|mm|yy|cvv")
-    
-    sent = bot.reply_to(message, "⏳ 𝗖𝗵𝗲𝗰𝗸𝗶𝗻𝗴 (𝗕𝗿𝗮𝗶𝗻𝘁𝗿𝗲𝗲)...")
-    try:
-        # Aapki 'braintree_dual_checker.py' ka function
-        res = ali1(cards[0]) 
-        bot.edit_message_text(f"<b>𝗥𝗲𝘀𝘂𝗹𝘁:</b>\n{res}", message.chat.id, sent.message_id)
-    except Exception as e:
-        bot.edit_message_text(f"❌ Error in ali1: {str(e)}", message.chat.id, sent.message_id)
-
-# 2. Stripe Gate (/str)
-@bot.message_handler(commands=['str'])
-def str_handler(message):
-    cards = get_cards(message.text)
-    if not cards: return bot.reply_to(message, "❌ Use: /str cc|mm|yy|cvv")
-    
-    sent = bot.reply_to(message, "⏳ 𝗖𝗵𝗲𝗰𝗸𝗶𝗻𝗴 (𝗦𝘁𝗿𝗶𝗽𝗲)...")
-    try:
-        # Aapki 'stripe.py' ka function
-        res = stripe_chk(cards[0]) 
-        bot.edit_message_text(f"<b>𝗦𝘁𝗿𝗶𝗽𝗲 𝗥𝗲𝘀𝘂𝗹𝘁:</b>\n{res}", message.chat.id, sent.message_id)
-    except Exception as e:
-        bot.edit_message_text(f"❌ Error in Stripe: {str(e)}", message.chat.id, sent.message_id)
-
-# 3. BIN Lookup (/bin)
+# --- BIN LOOKUP ---
 @bot.message_handler(commands=['bin'])
 def bin_handler(message):
+    args = message.text.split()
+    if len(args) < 2:
+        return bot.reply_to(message, "❌ BIN dijiye. Example: <code>/bin 444444</code>")
+    
+    sent = bot.reply_to(message, "🔍 <b>Searching BIN...</b>")
     try:
-        bin_num = re.findall(r'\d{6}', message.text)[0]
-        # Aapki 'bin_info_v1.py' ka function
-        res = bin_info(bin_num)
-        bot.reply_to(message, f"<b>🔍 BIN INFO:</b>\n\n<code>{res}</code>")
-    except:
-        bot.reply_to(message, "❌ Example: /bin 458456")
+        # Aapki 'bin_info_v1.py' file ka function call
+        res = bin_info(args[1][:6])
+        bot.edit_message_text(f"📌 <b>BIN Result:</b>\n\n<code>{res}</code>", message.chat.id, sent.message_id)
+    except Exception as e:
+        bot.edit_message_text(f"❌ Error: {str(e)}", message.chat.id, sent.message_id)
 
-# 4. Admin Control (/admin)
-@bot.message_handler(commands=['admin'])
-def admin_cmd(message):
-    if message.from_user.id == admin_id:
-        bot.reply_to(message, "👑 Admin Panel Access Granted.")
-    else:
-        bot.reply_to(message, "❌ Access Denied.")
+# --- SK KEY CHECK ---
+@bot.message_handler(commands=['sk'])
+def sk_handler(message):
+    args = message.text.split()
+    if len(args) < 2:
+        return bot.reply_to(message, "❌ Key missing!")
+    
+    sent = bot.reply_to(message, "🔑 <b>Checking Key...</b>")
+    try:
+        res = check_key(args[1])
+        bot.edit_message_text(f"📝 <b>SK Result:</b>\n\n<code>{res}</code>", message.chat.id, sent.message_id)
+    except Exception as e:
+        bot.edit_message_text("❌ Key Invalid ya API Error.", message.chat.id, sent.message_id)
 
-# —————————— RUN —————————— #
-if __name__ == '__main__':
-    print("🚀 Bot is live and linked with all files!")
-    bot.infinity_polling(none_stop=True)
+# --- CHECK CARD (BRAINTREE/STRIPE) ---
+@bot.message_handler(commands=['chk'])
+def chk_handler(message):
+    args = message.text.split()
+    if len(args) < 2:
+        return bot.reply_to(message, "❌ Format: <code>/chk card|mm|yy|cvv</code>")
+    
+    sent = bot.reply_to(message, "⏳ <b>Processing...</b>")
+    try:
+        # Aapki braintree_Api.py ka main function call
+        res = braintree_chk(args[1])
+        bot.edit_message_text(f"💳 <b>Gate: Braintree</b>\n\n<code>{res}</code>", message.chat.id, sent.message_id)
+    except Exception as e:
+        bot.edit_message_text("❌ Card decline ya Gateway error.", message.chat.id, sent.message_id)
+
+# --- RUN BOT ---
+if __name__ == "__main__":
+    print("✅ Bot Started Successfully!")
+    bot.send_message(admin_id, "🚀 <b>Bot is Live, Master!</b>")
+    bot.infinity_polling()
     
